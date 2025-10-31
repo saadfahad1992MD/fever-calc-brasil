@@ -1119,7 +1119,7 @@ function App({ onChangeLanguage }) {
                               <span className="text-gray-800">تم تطويره بواسطة</span>
                               {' '}
                               <a 
-                                href="https://www.linkedin.com/in/saad-almodameg-5a0a43308/" 
+                                href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:text-blue-800 font-semibold"
@@ -1128,7 +1128,7 @@ function App({ onChangeLanguage }) {
                               </a>
                               {' '}
                               <a 
-                                href="https://www.linkedin.com/in/saad-almodameg-5a0a43308/" 
+                                href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-1"
@@ -1700,7 +1700,7 @@ function App({ onChangeLanguage }) {
                 <span>تم تطويره بواسطة</span>
                 {' '}
                 <a 
-                  href="https://www.linkedin.com/in/saad-almodameg-5a0a43308/" 
+                  href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
@@ -1709,7 +1709,7 @@ function App({ onChangeLanguage }) {
                 </a>
                 {' '}
                 <a 
-                  href="https://www.linkedin.com/in/saad-almodameg-5a0a43308/" 
+                  href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1"
