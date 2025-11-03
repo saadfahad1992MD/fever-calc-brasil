@@ -424,13 +424,20 @@ function AppEnglish({ onChangeLanguage }) {
       })
     } else {
       // For syrups, calculate volume needed
-      const volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
+      let volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
+      
+      // Round DOWN to nearest 0.1ml for drops, 0.5ml for syrups (safety first)
+      if (selectedMedication.form === 'Drops') {
+        volumeNeeded = Math.floor(volumeNeeded * 10) / 10  // Round down to 0.1ml
+      } else {
+        volumeNeeded = Math.floor(volumeNeeded * 2) / 2    // Round down to 0.5ml
+      }
 
       setResult({
         medication: selectedMedication,
         weight: weightNum,
         doseMg: totalDoseMg,
-        volume: Math.round(volumeNeeded * 10) / 10,
+        volume: volumeNeeded,
         frequency,
         maxDailyDoses,
         isSuppository: false
