@@ -425,14 +425,24 @@ function App({ onChangeLanguage }) {
         isSuppository: true
       })
     } else {
-      // For syrups, calculate volume needed
+      // For syrups and drops, calculate volume needed
       const volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
+      
+      // Round down based on medication form
+      let roundedVolume
+      if (selectedMedication.form === 'قطرات') {
+        // Drops: round DOWN to nearest 0.1 ml
+        roundedVolume = Math.floor(volumeNeeded * 10) / 10
+      } else {
+        // Syrups: round DOWN to nearest 0.5 ml
+        roundedVolume = Math.floor(volumeNeeded * 2) / 2
+      }
 
       setResult({
         medication: selectedMedication,
         weight: weightNum,
         doseMg: totalDoseMg,
-        volume: Math.round(volumeNeeded * 10) / 10,
+        volume: roundedVolume,
         frequency,
         maxDailyDoses,
         isSuppository: false
