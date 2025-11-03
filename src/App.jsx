@@ -741,7 +741,7 @@ function App({ onChangeLanguage }) {
             {/* Left side on mobile, Right side on desktop - Share Button */}
             <button
               onClick={() => setIsShareModalOpen(true)}
-              className="flex items-center gap-2 px-3 py-2 sm:px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors duration-200 shadow-md order-1 sm:order-3"
+              className="flex items-center gap-2 px-3 py-2 sm:px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors duration-200 shadow-md order-3 sm:order-1"
               title="شارك الموقع"
             >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -767,7 +767,7 @@ function App({ onChangeLanguage }) {
             </div>
             
             {/* Right side on mobile - Placeholder, Left side on desktop - Placeholder */}
-            <div className="w-16 sm:w-24 order-3 sm:order-1"></div>
+            <div className="w-16 sm:w-24 order-1 sm:order-3"></div>
           </div>
         </div>
       </div>
