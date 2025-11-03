@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.jsx'
 import { AlertTriangle, Calculator, Info, X, ZoomIn, Pill, Flame, Shield, Clock, Users, CheckCircle, Linkedin } from 'lucide-react'
 import { LanguageToggle } from './components/LanguageToggle.jsx'
+import { ShareModal } from './components/ShareModal.jsx'
 import linkedinLogo from './assets/linkedin-logo.png'
 import './App.css'
 
@@ -313,6 +314,7 @@ function App({ onChangeLanguage }) {
   const [enlargedImage, setEnlargedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
@@ -735,22 +737,46 @@ function App({ onChangeLanguage }) {
       {/* Top Brand Header */}
       <div className="sticky top-0 bg-white text-gray-800 py-6 shadow-lg border-b-2 border-gray-100 z-40">
         <div className="max-w-4xl mx-auto px-4">
-          <div className="flex items-center justify-center gap-4">
-            {/* Icon Container */}
-            <div className="bg-red-100 rounded-2xl p-3 shadow-md border border-red-200">
-              <span className="text-4xl">🌡️</span>
+          <div className="flex items-center justify-between">
+            {/* Left side - Share Button */}
+            <button
+              onClick={() => setIsShareModalOpen(true)}
+              className="flex items-center gap-2 px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors duration-200 shadow-md"
+              title="شارك الموقع"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              <span className="hidden sm:inline">شارك</span>
+            </button>
+            
+            {/* Center - Logo */}
+            <div className="flex items-center gap-4">
+              {/* Icon Container */}
+              <div className="bg-red-100 rounded-2xl p-3 shadow-md border border-red-200">
+                <span className="text-4xl">🌡️</span>
+              </div>
+              
+              {/* Text Container */}
+              <div className="text-center">
+                <h1 className="font-bold text-3xl tracking-wide">
+                  <span className="text-gray-700">موقع </span>
+                  <span className="text-red-600 text-4xl">حرارة</span>
+                </h1>
+              </div>
             </div>
             
-            {/* Text Container */}
-            <div className="text-center">
-              <h1 className="font-bold text-3xl tracking-wide">
-                <span className="text-gray-700">موقع </span>
-                <span className="text-red-600 text-4xl">حرارة</span>
-              </h1>
-            </div>
+            {/* Right side - Placeholder for balance */}
+            <div className="w-24"></div>
           </div>
         </div>
       </div>
+      
+      {/* Share Modal */}
+      <ShareModal 
+        isOpen={isShareModalOpen} 
+        onClose={() => setIsShareModalOpen(false)} 
+      />
 
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
