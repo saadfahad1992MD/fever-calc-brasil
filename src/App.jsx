@@ -232,8 +232,8 @@ const suppositories = {
       concentration: 250,
       form: 'تحميلة',
       image: adol250SuppImg,
-      ageRestriction: '13-22',
-      weightRange: '13-22 كيلوغرام'
+      ageRestriction: '15-22',
+      weightRange: '15-22 كيلوغرام'
     },
     // 350mg suppositories
     {
