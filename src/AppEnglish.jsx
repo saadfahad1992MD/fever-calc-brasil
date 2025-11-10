@@ -1298,7 +1298,6 @@ function AppEnglish({ onChangeLanguage }) {
                                 <div>• Voltaren - Voltaren</div>
                                 <div>• Rofenac - Rofenac</div>
                                 <div>• Diclofen</div>
-                                <div>• Olfen</div>
                               </div>
                             </div>
                           </TabsContent>

@@ -1331,7 +1331,6 @@ function App({ onChangeLanguage }) {
                                 <div>• فولتارين - Voltaren</div>
                                 <div>• روفيناك - Rofenac</div>
                                 <div>• ديكلوفين - Diclofen</div>
-                                <div>• أولفين - Olfen</div>
                               </div>
                             </div>
                           </TabsContent>
