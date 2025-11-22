@@ -15,7 +15,7 @@ import linkedinLogo from './assets/linkedin-logo.png'
 import './App.css'
 
 // Import country-specific medication data
-import { medicationsIndia, suppositoriesIndia } from './data/medicationsIndia.js'
+import { medicationsIndia } from './data/medicationsIndia.js'
 import { medicationsEgypt } from './data/medicationsEgypt.js'
 
 // Import medication images
@@ -322,7 +322,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
   // Select medications based on country
   const medicationsData = country === 'IN' ? medicationsIndia : (country === 'EG' ? medicationsEgypt : medications)
-  const suppositoriesData = country === 'IN' ? suppositoriesIndia : suppositories
+  const suppositoriesData = country === 'IN' ? medicationsIndia.suppositories : suppositories
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
