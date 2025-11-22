@@ -5,6 +5,7 @@ import AppIndia from './AppIndia.jsx'
 import AppIndiaEnglish from './AppIndiaEnglish.jsx'
 // import AppPhilippines from './AppPhilippines.jsx'
 import { LanguageSelector } from './LanguageSelector.jsx'
+import CountrySelector from './components/CountrySelector.jsx'
 import { getUserCountry } from './utils/geolocation.js'
 
 export function AppWrapper() {
@@ -91,23 +92,31 @@ export function AppWrapper() {
   // India: Hindi (hi) or English (en)
   // Others: Arabic (ar) or English (en)
   
+  // Render the appropriate app version
+  let appContent
+  
   if (country === 'IN') {
     // India version
     if (language === 'hi') {
-      return <AppIndia onChangeLanguage={handleChangeLanguage} />
+      appContent = <AppIndia onChangeLanguage={handleChangeLanguage} />
+    } else {
+      appContent = <AppIndiaEnglish onChangeLanguage={handleChangeLanguage} />
     }
-    return <AppIndiaEnglish onChangeLanguage={handleChangeLanguage} />
-  }
-  
-  if (country === 'PH') {
+  } else if (country === 'PH') {
     // Philippines version - English only for now (Tagalog coming soon)
-    return <AppEnglish onChangeLanguage={handleChangeLanguage} country={country} />
+    appContent = <AppEnglish onChangeLanguage={handleChangeLanguage} country={country} />
+  } else if (language === 'ar') {
+    // Saudi/Egypt/Default version - Arabic
+    appContent = <App onChangeLanguage={handleChangeLanguage} country={country} language={language} />
+  } else {
+    // Saudi/Egypt/Default version - English
+    appContent = <AppEnglish onChangeLanguage={handleChangeLanguage} country={country} />
   }
   
-  // Saudi/Egypt/Default version
-  if (language === 'ar') {
-    return <App onChangeLanguage={handleChangeLanguage} country={country} language={language} />
-  }
-  
-  return <AppEnglish onChangeLanguage={handleChangeLanguage} country={country} />
+  return (
+    <>
+      {appContent}
+      <CountrySelector currentCountry={country} />
+    </>
+  )
 }
