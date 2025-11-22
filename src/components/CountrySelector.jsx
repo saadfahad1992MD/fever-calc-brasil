@@ -7,9 +7,10 @@ export default function CountrySelector({ currentCountry, onCountryChange }) {
 
   const countries = [
     { code: 'AUTO', name: 'Auto-detect', nameAr: 'تلقائي', flag: '🌍' },
-    { code: 'EG', name: 'Egypt', nameAr: 'مصر', flag: '🇪🇬' },
     { code: 'SA', name: 'Saudi Arabia', nameAr: 'السعودية', flag: '🇸🇦' },
-    { code: 'OTHER', name: 'Other Countries', nameAr: 'دول أخرى', flag: '🌐' }
+    { code: 'EG', name: 'Egypt', nameAr: 'مصر', flag: '🇪🇬' },
+    { code: 'IN', name: 'India', nameAr: 'الهند', flag: '🇮🇳' },
+    { code: 'PH', name: 'Philippines', nameAr: 'الفلبين', flag: '🇵🇭' }
   ]
 
   const handleCountrySelect = (code) => {
