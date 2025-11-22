@@ -746,7 +746,10 @@ function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <LanguageToggle currentLanguage="en" targetLanguage={country === 'PH' ? 'tl' : 'ar'} onToggle={onChangeLanguage} />
+      {/* Hide language toggle for Philippines - English only until Tagalog translation is ready */}
+      {country !== 'PH' && (
+        <LanguageToggle currentLanguage="en" targetLanguage="ar" onToggle={onChangeLanguage} />
+      )}
       {/* Top Brand Header */}
       <div className="sticky top-0 bg-white text-gray-800 py-6 shadow-lg border-b-2 border-gray-100 z-40">
         <div className="max-w-4xl mx-auto px-4">
@@ -947,14 +950,17 @@ function AppEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
                     <span>💧</span>
                     <span>Syrup</span>
                   </Button>
-                  <Button
-                    variant={medicationType === 'suppository' ? 'default' : 'outline'}
-                    onClick={() => changeMedicationType('suppository')}
-                    className="flex items-center gap-2 px-6 py-3"
-                  >
-                    <span>💊</span>
-                    <span>Suppositories</span>
-                  </Button>
+                  {/* Hide suppositories for Philippines - not available there */}
+                  {country !== 'PH' && (
+                    <Button
+                      variant={medicationType === 'suppository' ? 'default' : 'outline'}
+                      onClick={() => changeMedicationType('suppository')}
+                      className="flex items-center gap-2 px-6 py-3"
+                    >
+                      <span>💊</span>
+                      <span>Suppositories</span>
+                    </Button>
+                  )}
                 </div>
               </div>
 
