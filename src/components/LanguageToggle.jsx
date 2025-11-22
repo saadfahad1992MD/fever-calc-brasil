@@ -31,7 +31,17 @@ export function LanguageToggle({ currentLanguage, onToggle, targetLanguage }) {
     } else if (target === 'tl') {
       flag = '🇵🇭';
       text = 'Tagalog';
+    } else {
+      // Fallback to Arabic if target is unknown
+      flag = '🇸🇦';
+      text = 'العربية';
     }
+  }
+  
+  // Fallback if flag/text are still undefined
+  if (!flag || !text) {
+    flag = '🇬🇧';
+    text = 'English';
   }
   
   return (
