@@ -1,21 +1,48 @@
 import { useState, useEffect } from 'react'
 import App from './App.jsx'
 import AppEnglish from './AppEnglish.jsx'
+import AppIndia from './AppIndia.jsx'
+import AppIndiaEnglish from './AppIndiaEnglish.jsx'
 import { LanguageSelector } from './LanguageSelector.jsx'
+import { getUserCountry } from './utils/geolocation.js'
 
 export function AppWrapper() {
-  const [language, setLanguage] = useState('ar')
+  const [language, setLanguage] = useState(null) // Will be set based on country
+  const [country, setCountry] = useState('DEFAULT')
+  const [isLoadingCountry, setIsLoadingCountry] = useState(true)
 
-  // Check if language was previously selected
+  // Detect user's country on mount
   useEffect(() => {
-    const savedLanguage = localStorage.getItem('selectedLanguage')
-    if (savedLanguage) {
-      setLanguage(savedLanguage)
+    async function detectCountry() {
+      try {
+        const detectedCountry = await getUserCountry()
+        setCountry(detectedCountry)
+        console.log('User country detected:', detectedCountry)
+        
+        // Set default language based on country if not already set
+        const savedLanguage = localStorage.getItem('selectedLanguage')
+        if (!savedLanguage) {
+          // India -> Hindi, others -> Arabic
+          const defaultLang = detectedCountry === 'IN' ? 'hi' : 'ar'
+          setLanguage(defaultLang)
+          document.documentElement.dir = defaultLang === 'ar' ? 'rtl' : 'ltr'
+          document.documentElement.lang = defaultLang
+        } else {
+          setLanguage(savedLanguage)
+        }
+      } catch (error) {
+        console.error('Error detecting country:', error)
+        setCountry('DEFAULT')
+        setLanguage('ar') // Default to Arabic
+      } finally {
+        setIsLoadingCountry(false)
+      }
     }
-    // Set document direction based on current language
-    document.documentElement.dir = (savedLanguage || 'ar') === 'ar' ? 'rtl' : 'ltr'
-    document.documentElement.lang = savedLanguage || 'ar'
+    
+    detectCountry()
   }, [])
+
+  // Language initialization is now handled in detectCountry
 
   const handleSelectLanguage = (lang) => {
     setLanguage(lang)
@@ -26,7 +53,14 @@ export function AppWrapper() {
   }
 
   const handleChangeLanguage = () => {
-    const newLanguage = language === 'ar' ? 'en' : 'ar'
+    // For India: toggle between Hindi (hi) and English (en)
+    // For others: toggle between Arabic (ar) and English (en)
+    let newLanguage
+    if (country === 'IN') {
+      newLanguage = language === 'hi' ? 'en' : 'hi'
+    } else {
+      newLanguage = language === 'ar' ? 'en' : 'ar'
+    }
     setLanguage(newLanguage)
     localStorage.setItem('selectedLanguage', newLanguage)
     // Set document direction
@@ -34,12 +68,37 @@ export function AppWrapper() {
     document.documentElement.lang = newLanguage
   }
 
-  // Language selector removed - Arabic is default
-
-  if (language === 'ar') {
-    return <App onChangeLanguage={handleChangeLanguage} />
+  // Show loading state while detecting country
+  if (isLoadingCountry) {
+    return (
+      <div style={{ 
+        display: 'flex', 
+        justifyContent: 'center', 
+        alignItems: 'center', 
+        height: '100vh',
+        fontSize: '18px'
+      }}>
+        Loading...
+      </div>
+    )
   }
 
-  return <AppEnglish onChangeLanguage={handleChangeLanguage} />
+  // Show appropriate version based on country and language
+  // India: Hindi (hi) or English (en)
+  // Others: Arabic (ar) or English (en)
+  
+  if (country === 'IN') {
+    // India version
+    if (language === 'hi') {
+      return <AppIndia onChangeLanguage={handleChangeLanguage} />
+    }
+    return <AppIndiaEnglish onChangeLanguage={handleChangeLanguage} />
+  }
+  
+  // Saudi/Egypt/Default version
+  if (language === 'ar') {
+    return <App onChangeLanguage={handleChangeLanguage} country={country} language={language} />
+  }
+  
+  return <AppEnglish onChangeLanguage={handleChangeLanguage} country={country} />
 }
-

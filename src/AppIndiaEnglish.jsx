@@ -10,13 +10,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.jsx'
 import { AlertTriangle, Calculator, Info, X, ZoomIn, Pill, Flame, Shield, Clock, Users, CheckCircle, Linkedin } from 'lucide-react'
 import { LanguageToggle } from './components/LanguageToggle.jsx'
-import { ShareModal } from './components/ShareModal.jsx'
+import { ShareModalEnglish } from './components/ShareModalEnglish.jsx'
 import linkedinLogo from './assets/linkedin-logo.png'
+import { medicationsIndiaEnglish } from './data/medicationsIndiaEnglish.js'
 import './App.css'
-
-// Import country-specific medication data
-import { medicationsIndia, suppositoriesIndia } from './data/medicationsIndia.js'
-import { medicationsEgypt } from './data/medicationsEgypt.js'
 
 // Import medication images
 import adolSyrupImg from './assets/medications/adol_syrup.webp'
@@ -46,129 +43,131 @@ import rofenac25SuppImg from './assets/suppositories/rofenac_25.webp'
 import voltaren12_5SuppImg from './assets/suppositories/voltaren_12_5.jpg'
 import voltaren25SuppImg from './assets/suppositories/voltaren_25.webp'
 
+// Saudi medications - replaced with Indian medications
+/*
 const medications = {
   paracetamol: [
     {
       id: 'adol_drops',
-      name: 'أدول قطرات',
-      ingredient: 'باراسيتامول',
+      name: 'Adol Drops',
+      ingredient: 'Paracetamol',
       concentration: 100, // mg per ml
       volume: 1, // ml
-      form: 'قطرات',
+      form: 'Drops',
       image: adolDropsImg,
-      ageRestriction: 'عمر سنتين و أقل'
+      ageRestriction: '2 years and under'
     },
     {
       id: 'adol_syrup',
-      name: 'أدول شراب',
-      ingredient: 'باراسيتامول',
+      name: 'Adol Syrup',
+      ingredient: 'Paracetamol',
       concentration: 120, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: adolSyrupImg,
       ageRestriction: ''
     },
     {
       id: 'fevadol',
-      name: 'فيفادول',
-      ingredient: 'باراسيتامول',
+      name: 'Fevadol',
+      ingredient: 'Paracetamol',
       concentration: 160, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: fevadolImg,
       ageRestriction: ''
     },
     {
       id: 'panadol-mother-child',
-      name: 'بانادول',
-      ingredient: 'باراسيتامول',
+      name: 'Panadol',
+      ingredient: 'Paracetamol',
       concentration: 120, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: panadolMotherChildImg,
       ageRestriction: ''
     },
     {
       id: 'panadol-baby',
-      name: 'بانادول',
-      ingredient: 'باراسيتامول',
+      name: 'Panadol',
+      ingredient: 'Paracetamol',
       concentration: 120, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: panadolBabySuspensionImg,
       ageRestriction: ''
     },
     {
       id: 'defadol',
-      name: 'ديفادول',
-      ingredient: 'باراسيتامول',
+      name: 'Defadol',
+      ingredient: 'Paracetamol',
       concentration: 160, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: defadolImg,
       ageRestriction: ''
     },
     {
       id: 'panadol-children',
-      name: 'بانادول',
-      ingredient: 'باراسيتامول',
+      name: 'Panadol',
+      ingredient: 'Paracetamol',
       concentration: 240, // mg per 5ml (Children's 5-12 years)
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: panadolImg,
-      ageRestriction: 'مناسب من عمر 5 سنوات'
+      ageRestriction: 'Suitable from 5 years old'
     }
   ],
   ibuprofen: [
     {
       id: 'nurofen',
-      name: 'نيوروفين',
-      ingredient: 'آيبوبروفين',
+      name: 'Nurofen',
+      ingredient: 'Ibuprofen',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: nurofenImg,
-      ageRestriction: 'العمر أكبر من 6 أشهر'
+      ageRestriction: 'Age over 6 months'
     },
     {
-      id: 'brufen',
-      name: 'بروف',
-      ingredient: 'آيبوبروفين',
+      id: 'prof',
+      name: 'Prof',
+      ingredient: 'Ibuprofen',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: brufenImg,
-      ageRestriction: 'العمر أكبر من 6 أشهر'
+      ageRestriction: 'Age over 6 months'
     },
     {
       id: 'profinal',
-      name: 'بروفينال',
-      ingredient: 'آيبوبروفين',
+      name: 'Profinal',
+      ingredient: 'Ibuprofen',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: profinalImg,
-      ageRestriction: 'العمر أكبر من 6 أشهر'
+      ageRestriction: 'Age over 6 months'
     },
     {
       id: 'brufen2',
-      name: 'بروفين',
-      ingredient: 'آيبوبروفين',
+      name: 'Brufen',
+      ingredient: 'Ibuprofen',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: brufen2Img,
-      ageRestriction: 'العمر أكبر من 6 أشهر'
+      ageRestriction: 'Age over 6 months'
     },
     {
       id: 'sapofen',
-      name: 'سابوفين',
-      ingredient: 'آيبوبروفين',
+      name: 'Sapofen',
+      ingredient: 'Ibuprofen',
       concentration: 100, // mg per 5ml
       volume: 5, // ml
-      form: 'شراب',
+      form: 'Syrup',
       image: sapofenImg,
-      ageRestriction: 'العمر أكبر من 6 أشهر'
+      ageRestriction: 'Age over 6 months'
     }
   ]
 }
@@ -178,136 +177,142 @@ const suppositories = {
     // 100mg suppositories
     {
       id: 'fevadol_100_supp',
-      name: 'فيفادول 100',
-      ingredient: 'باراسيتامول',
+      name: 'Fevadol 100',
+      ingredient: 'Paracetamol',
       concentration: 100,
-      form: 'تحميلة',
+      form: 'suppository',
       image: fevadol100SuppImg,
       ageRestriction: '6-12.9',
-      weightRange: '6-12.9 كيلوغرام'
+      weightRange: '6-12.9 kg'
     },
     {
       id: 'tylenol_100_supp',
-      name: 'تايلينول 100',
-      ingredient: 'باراسيتامول',
+      name: 'Tylenol 100',
+      ingredient: 'Paracetamol',
       concentration: 100,
-      form: 'تحميلة',
+      form: 'suppository',
       image: tylenol100SuppImg,
       ageRestriction: '6-12.9',
-      weightRange: '6-12.9 كيلوغرام'
+      weightRange: '6-12.9 kg'
     },
     // 125mg suppositories
     {
       id: 'adol_125_supp',
-      name: 'أدول 125',
-      ingredient: 'باراسيتامول',
+      name: 'Adol 125',
+      ingredient: 'Paracetamol',
       concentration: 125,
-      form: 'تحميلة',
+      form: 'suppository',
       image: adol125SuppImg,
-      ageRestriction: '8-12.9',
-      weightRange: '8-12.9 كيلوغرام'
+      ageRestriction: '6-12.9',
+      weightRange: '6-12.9 kg'
     },
     // 200mg suppositories
     {
       id: 'fevadol_200_supp',
-      name: 'فيفادول 200',
-      ingredient: 'باراسيتامول',
+      name: 'Fevadol 200',
+      ingredient: 'Paracetamol',
       concentration: 200,
-      form: 'تحميلة',
+      form: 'suppository',
       image: fevadol200SuppImg,
-      ageRestriction: '13-20',
-      weightRange: '13-20 كيلوغرام'
+      ageRestriction: '13-22',
+      weightRange: '13-22 kg'
     },
     {
       id: 'tylenol_200_supp',
-      name: 'تايلينول 200',
-      ingredient: 'باراسيتامول',
+      name: 'Tylenol 200',
+      ingredient: 'Paracetamol',
       concentration: 200,
-      form: 'تحميلة',
+      form: 'suppository',
       image: tylenol200SuppImg,
-      ageRestriction: '13-20',
-      weightRange: '13-20 كيلوغرام'
+      ageRestriction: '13-22',
+      weightRange: '13-22 kg'
     },
     // 250mg suppositories
     {
       id: 'adol_250_supp',
-      name: 'أدول 250',
-      ingredient: 'باراسيتامول',
+      name: 'Adol 250',
+      ingredient: 'Paracetamol',
       concentration: 250,
-      form: 'تحميلة',
+      form: 'suppository',
       image: adol250SuppImg,
-      ageRestriction: '15-22',
-      weightRange: '15-22 كيلوغرام'
+      ageRestriction: '13-22',
+      weightRange: '13-22 kg'
     },
     // 350mg suppositories
     {
       id: 'fevadol_350_supp',
-      name: 'فيفادول 350',
-      ingredient: 'باراسيتامول',
+      name: 'Fevadol 350',
+      ingredient: 'Paracetamol',
       concentration: 350,
-      form: 'تحميلة',
+      form: 'suppository',
       image: fevadol350SuppImg,
       ageRestriction: '23-35',
-      weightRange: '23-35 كيلوغرام'
+      weightRange: '23-35 kg'
     },
     {
       id: 'tylenol_350_supp',
-      name: 'تايلينول 350',
-      ingredient: 'باراسيتامول',
+      name: 'Tylenol 350',
+      ingredient: 'Paracetamol',
       concentration: 350,
-      form: 'تحميلة',
+      form: 'suppository',
       image: tylenol350SuppImg,
       ageRestriction: '23-35',
-      weightRange: '23-35 كيلوغرام'
+      weightRange: '23-35 kg'
     }
   ],
   diclofenac: [
     // 12.5mg suppositories
     {
       id: 'rofenac_12_5_supp',
-      name: 'روفيناك 12.5',
-      ingredient: 'ديكلوفيناك',
+      name: 'Rofenac 12.5',
+      ingredient: 'Diclofenac',
       concentration: 12.5,
-      form: 'تحميلة',
+      form: 'suppository',
       image: rofenac12_5SuppImg,
       ageRestriction: '8-16',
-      weightRange: '8-16 كيلوغرام'
+      weightRange: '8-16 kg'
     },
     {
       id: 'voltaren_12_5_supp',
-      name: 'فولتارين 12.5',
-      ingredient: 'ديكلوفيناك',
+      name: 'Voltaren 12.5',
+      ingredient: 'Diclofenac',
       concentration: 12.5,
-      form: 'تحميلة',
+      form: 'suppository',
       image: voltaren12_5SuppImg,
       ageRestriction: '8-16',
-      weightRange: '8-16 كيلوغرام'
+      weightRange: '8-16 kg'
     },
     // 25mg suppositories
     {
       id: 'rofenac_25_supp',
-      name: 'روفيناك 25',
-      ingredient: 'ديكلوفيناك',
+      name: 'Rofenac 25',
+      ingredient: 'Diclofenac',
       concentration: 25,
-      form: 'تحميلة',
+      form: 'suppository',
       image: rofenac25SuppImg,
       ageRestriction: '17-25',
-      weightRange: '17-25 كيلوغرام'
+      weightRange: '17-25 kg'
     },
     {
       id: 'voltaren_25_supp',
-      name: 'فولتارين 25',
-      ingredient: 'ديكلوفيناك',
+      name: 'Voltaren 25',
+      ingredient: 'Diclofenac',
       concentration: 25,
-      form: 'تحميلة',
+      form: 'suppository',
       image: voltaren25SuppImg,
       ageRestriction: '17-25',
-      weightRange: '17-25 كيلوغرام'
+      weightRange: '17-25 kg'
     }
   ]
 }
 
-function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
+*/
+
+// Use Indian medications database (English)
+const medications = medicationsIndiaEnglish;
+const suppositories = medicationsIndiaEnglish.suppositories;
+
+function AppIndiaEnglish({ onChangeLanguage }) {
   const [weight, setWeight] = useState('') // String for text input
   const [age, setAge] = useState('') // String for text input
   const [ageUnit, setAgeUnit] = useState('') // 'months' or 'years' - empty by default
@@ -319,10 +324,6 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
   const [isShareModalOpen, setIsShareModalOpen] = useState(false)
-
-  // Select medications based on country
-  const medicationsData = country === 'IN' ? medicationsIndia : (country === 'EG' ? medicationsEgypt : medications)
-  const suppositoriesData = country === 'IN' ? suppositoriesIndia : suppositories
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
@@ -350,7 +351,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
     const ageNum = parseFloat(ageStr)
     
     if (weightNum <= 0 || weightNum > 100) {
-      setResult({ error: 'يرجى إدخال وزن صحيح (1-100 كيلوغرام)' })
+      setResult({ error: 'Please enter a valid weight (1-100 kg)' })
       return
     }
 
@@ -362,42 +363,42 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
     let maxDailyDoses
     let maxSingleDose // Maximum single dose in mg
 
-    if (selectedMedication.ingredient === 'باراسيتامول') {
+    if (selectedMedication.ingredient === 'Paracetamol') {
       dosagePerKg = 15 // 10-15mg/kg per dose
-      frequency = 'كل 4-6 ساعات'
+      frequency = 'Every 4-6 hours'
       maxDailyDoses = 5
       maxSingleDose = 500 // Maximum 500mg per dose
-    } else if (selectedMedication.ingredient === 'آيبوبروفين') {
+    } else if (selectedMedication.ingredient === 'Ibuprofen') {
       dosagePerKg = 10 // 5-10mg/kg per dose
-      frequency = 'كل 6-8 ساعات'
+      frequency = 'Every 6-8 hours'
       maxDailyDoses = 3
       maxSingleDose = 400 // Maximum 400mg per dose
-    } else if (selectedMedication.ingredient === 'ديكلوفيناك') {
+    } else if (selectedMedication.ingredient === 'Diclofenac') {
       // New diclofenac calculation logic based on weight ranges
-      frequency = 'كل 8-12 ساعة'
+      frequency = 'Every 8-12 hours'
       maxDailyDoses = 2
       
       // Check age requirement (minimum 1 year)
       if (ageInMonths < 12) {
-        setResult({ error: 'الديكلوفيناك مناسب للأطفال من عمر سنة واحدة فما فوق' })
+        setResult({ error: 'Diclofenac is suitable for children aged one year and above' })
         return
       }
       
       // Weight-based dosing for diclofenac suppositories
-      if (selectedMedication.form === 'تحميلة') {
+      if (selectedMedication.form === 'suppository') {
         let appropriateDose = 0
         if (weightNum >= 8 && weightNum <= 16) {
           appropriateDose = 12.5
         } else if (weightNum >= 17 && weightNum <= 25) {
           appropriateDose = 25
         } else {
-          setResult({ error: 'الديكلوفيناك مناسب للأوزان من 8-25 كيلوغرام فقط' })
+          setResult({ error: 'Diclofenac is suitable for weights 8-25 kg only' })
           return
         }
         
         // Check if selected medication matches the appropriate dose
         if (selectedMedication.concentration !== appropriateDose) {
-          setResult({ error: `يرجى اختيار تحميلة ديكلوفيناك ${appropriateDose}mg المناسبة لوزن طفلك` })
+          setResult({ error: `Please select Diclofenac suppository ${appropriateDose}mg appropriate for your child's weight` })
           return
         }
         
@@ -421,7 +422,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
       totalDoseMg = maxSingleDose
     }
 
-    if (selectedMedication.form === 'تحميلة') {
+    if (selectedMedication.form === 'suppository') {
       // For suppositories, always show one suppository
       setResult({
         medication: selectedMedication,
@@ -433,24 +434,21 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
         isSuppository: true
       })
     } else {
-      // For syrups and drops, calculate volume needed
-      const volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
+      // For syrups, calculate volume needed
+      let volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
       
-      // Round down based on medication form
-      let roundedVolume
-      if (selectedMedication.form === 'قطرات') {
-        // Drops: round DOWN to nearest 0.1 ml
-        roundedVolume = Math.floor(volumeNeeded * 10) / 10
+      // Round DOWN to nearest 0.1ml for drops, 0.5ml for syrups (safety first)
+      if (selectedMedication.form === 'Drops') {
+        volumeNeeded = Math.floor(volumeNeeded * 10) / 10  // Round down to 0.1ml
       } else {
-        // Syrups: round DOWN to nearest 0.5 ml
-        roundedVolume = Math.floor(volumeNeeded * 2) / 2
+        volumeNeeded = Math.floor(volumeNeeded * 2) / 2    // Round down to 0.5ml
       }
 
       setResult({
         medication: selectedMedication,
         weight: weightNum,
         doseMg: totalDoseMg,
-        volume: roundedVolume,
+        volume: volumeNeeded,
         frequency,
         maxDailyDoses,
         isSuppository: false
@@ -477,14 +475,14 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
     if (!weightNum) return []
     
     // Get all suppositories from the suppositories object
-    const paracetamolSupps = suppositoriesData.paracetamol || []
-    const diclofenacSupps = suppositoriesData.diclofenac || []
+    const paracetamolSupps = suppositories.paracetamol || []
+    const diclofenacSupps = suppositories.diclofenac || []
     
     const allSuppositories = [...paracetamolSupps, ...diclofenacSupps]
     
     return allSuppositories.filter(med => {
       // For paracetamol suppositories, use weight-based filtering only
-      if (med.ingredient === 'باراسيتامول') {
+      if (med.ingredient === 'Paracetamol') {
         const weightRange = med.weightRange
         let minWeight = 0, maxWeight = 999
         if (weightRange) {
@@ -499,7 +497,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
       }
       
       // For diclofenac suppositories, use weight-based filtering with minimum age of 1 year
-      if (med.ingredient === 'ديكلوفيناك') {
+      if (med.ingredient === 'Diclofenac') {
         // Check minimum age (12 months = 1 year)
         if (ageInMonths < 12) return false
         
@@ -522,7 +520,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
   const MedicationCard = ({ medication, category }) => {
     // Check if medication is Ibuprofen and age is under 6 months
-    const isIbuprofen = medication.ingredient === 'آيبوبروفين'
+    const isIbuprofen = medication.ingredient === 'Ibuprofen'
     const ageInMonths = ageUnit === 'years' ? parseFloat(age) * 12 : parseFloat(age)
     const isUnder6Months = age && ageUnit && ageInMonths < 6
     
@@ -534,10 +532,10 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
     let isSuppositoryUnsuitable = false
     let unsuitabilityReason = ''
     
-    if (medication.form === 'تحميلة' && age && ageUnit && weight) {
+    if (medication.form === 'suppository' && age && ageUnit && weight) {
       const weightNum = parseFloat(weight)
       
-      if (medication.ingredient === 'باراسيتامول') {
+      if (medication.ingredient === 'Paracetamol') {
         const weightRange = medication.weightRange
         if (weightRange) {
           const weightMatch = weightRange.match(/(\d+(?:\.\d+)?)-(\d+(?:\.\d+)?)/)
@@ -546,38 +544,38 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
             const maxWeight = parseFloat(weightMatch[2])
             if (weightNum < minWeight || weightNum > maxWeight) {
               isSuppositoryUnsuitable = true
-              unsuitabilityReason = `مناسب للوزن ${weightRange}`
+              unsuitabilityReason = `Suitable for weight ${weightRange} kg`
             }
           }
         }
       }
       
-      if (medication.ingredient === 'ديكلوفيناك') {
+      if (medication.ingredient === 'Diclofenac') {
         if (ageInMonths < 12) {
           isSuppositoryUnsuitable = true
-          unsuitabilityReason = 'مناسب للأطفال أكبر من سنة'
+          unsuitabilityReason = 'Suitable for children over 1 year old'
         } else {
           if (weightNum >= 8 && weightNum <= 16) {
             if (medication.concentration !== 12.5) {
               isSuppositoryUnsuitable = true
               // Show the range for THIS medication (25mg), not the unsuitable one
-              unsuitabilityReason = 'مناسب للوزن 17-25 كجم'
+              unsuitabilityReason = 'Suitable for weight 17-25 kg'
             }
           } else if (weightNum >= 17 && weightNum <= 25) {
             if (medication.concentration !== 25) {
               isSuppositoryUnsuitable = true
               // Show the range for THIS medication (12.5mg), not the unsuitable one
-              unsuitabilityReason = 'مناسب للوزن 8-16 كجم'
+              unsuitabilityReason = 'Suitable for weight 8-16 kg'
             }
           } else {
             isSuppositoryUnsuitable = true
             // Show specific range based on concentration
             if (medication.concentration === 12.5) {
-              unsuitabilityReason = 'مناسب للوزن 8-16 كجم'
+              unsuitabilityReason = 'Suitable for weight 8-16 kg'
             } else if (medication.concentration === 25) {
-              unsuitabilityReason = 'مناسب للوزن 17-25 كجم'
+              unsuitabilityReason = 'Suitable for weight 17-25 kg'
             } else {
-              unsuitabilityReason = 'مناسب للوزن 8-25 كجم'
+              unsuitabilityReason = 'Suitable for weight 8-25 kg'
             }
           }
         }
@@ -589,22 +587,22 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
     const handleClick = () => {
       // Check if age and weight are entered
       if (!age || !ageUnit || !weight) {
-        alert('⚠️ يرجى إدخال العمر والوزن أولاً')
+        alert('⚠️ Please enter age and weight first')
         return
       }
       
       if (isSuppositoryUnsuitable) {
-        alert(`⚠️ تحذير: هذه التحميلة غير مناسبة لطفلك\n${unsuitabilityReason}`)
+        alert(`⚠️ Warning: This suppository is not suitable for your child\n${unsuitabilityReason}`)
         return
       }
       
       if (isIbuprofen && isUnder6Months) {
-        alert('⚠️ تحذير: أدوية آيبوبروفين مناسبة للأطفال من عمر 6 أشهر فما فوق فقط')
+        alert('⚠️ Warning: Ibuprofen medications are suitable for children 6 months and older only')
         return
       }
       
       if (isAdolDrops && is2YearsOrAbove) {
-        alert('⚠️ تحذير: أدول قطرات مناسبة للأطفال أقل من سنتين فقط')
+        alert('⚠️ Warning: Adol Drops are suitable for children under 2 years old only')
         return
       }
       setSelectedMedication(medication)
@@ -648,19 +646,19 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                 setCurrentImageIndex(0)
               }}
               className="flex items-center gap-1 px-2 py-1 bg-blue-500 hover:bg-blue-600 text-white text-xs rounded-md transition-colors duration-200"
-              title="اضغط للتكبير"
+              title="Click to Enlarge"
             >
               <ZoomIn className="w-3 h-3" />
-              <span>تكبير</span>
+              <span>Enlarge</span>
             </button>
           </div>
           <div className="flex-1">
-            <h3 className="text-right font-semibold text-lg">{medication.name}</h3>
-            <p className="text-right text-sm text-gray-600">{medication.ingredient}</p>
-            <div className="text-right text-sm text-gray-500">
-              <span>التركيز: </span>
+            <h3 className="font-semibold text-lg">{medication.name}</h3>
+            <p className="text-sm text-gray-600">{medication.ingredient}</p>
+            <div className="text-sm text-gray-500">
+              <span>Concentration: </span>
               <span className="font-bold text-blue-600" dir="ltr">
-                {medication.form === 'تحميلة' 
+                {medication.form === 'suppository' 
                   ? `${medication.concentration}mg`
                   : `${medication.concentration}mg/${medication.volume}ml`
                 }
@@ -668,22 +666,22 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
               <span className="mr-2">{medication.form}</span>
             </div>
             {medication.ageRestriction && (
-              <p className="text-right text-xs text-blue-600 font-medium mt-1">
+              <p className="text-xs text-blue-600 font-medium mt-1">
                 {medication.ageRestriction}
               </p>
             )}
             {(isIbuprofen && isUnder6Months) && (
-              <p className="text-right text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
-                ⚠️ للأطفال من 6 أشهر فما فوق
+              <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
+                ⚠️ For 6 months and older
               </p>
             )}
             {(isAdolDrops && is2YearsOrAbove) && (
-              <p className="text-right text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
-                ⚠️ للأطفال أقل من سنتين
+              <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
+                ⚠️ For children under 2 years
               </p>
             )}
             {isSuppositoryUnsuitable && (
-              <p className="text-right text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
+              <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
                 ⚠️ {unsuitabilityReason}
               </p>
             )}
@@ -709,7 +707,8 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                     // Simple scroll: position results just below sticky header with some padding
                     const stickyHeaderHeight = 88
                     const resultsTop = resultsSection.getBoundingClientRect().top + window.pageYOffset
-                    const targetPosition = resultsTop - stickyHeaderHeight - 20
+                    // Reduced offset to make scroll go further down (match Arabic version)
+                    const targetPosition = resultsTop - stickyHeaderHeight + 30
                     const startPosition = window.pageYOffset
                     const distance = targetPosition - startPosition
                     const duration = 3000 // 3 seconds for optimal slow, smooth scroll
@@ -739,19 +738,19 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
               }}
               className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-md transition-colors duration-200"
             >
-              <span>احسب الجرعة</span>
+              <span>Calculate Dose</span>
               <span>💊</span>
             </button>
           </div>
         )}
       </CardContent>
     </Card>
-    )
+  )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100" dir="rtl">
-      <LanguageToggle currentLanguage="ar" onToggle={onChangeLanguage} />
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+      <LanguageToggle currentLanguage="en" onToggle={onChangeLanguage} />
       {/* Top Brand Header */}
       <div className="sticky top-0 bg-white text-gray-800 pt-12 pb-6 sm:pt-6 shadow-lg border-b-2 border-gray-100 z-40">
         <div className="max-w-4xl mx-auto px-4 relative">
@@ -759,45 +758,29 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
           <button
             onClick={() => setIsShareModalOpen(true)}
             className="absolute left-1 top-1 sm:relative sm:left-auto sm:top-auto flex items-center gap-2 px-3 py-2 sm:px-4 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors duration-200 shadow-md"
-            title="شارك الموقع"
+            title="Share"
           >
               <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M3 11h8V3H3v8zm2-6h4v4H5V5zm8-2v8h8V3h-8zm6 6h-4V5h4v4zM3 21h8v-8H3v8zm2-6h4v4H5v-4zm13-2h-2v3h-3v2h3v3h2v-3h3v-2h-3v-3z"/>
               </svg>
-              <span className="text-sm sm:text-base">شارك</span>
+              <span className="text-sm sm:text-base">Share</span>
           </button>
           
-          <div className="flex items-center justify-between">
-            {/* Left placeholder on desktop */}
-            <div className="hidden sm:block sm:w-24"></div>
-            
-            {/* Center - Logo */}
-            <div className="flex items-center gap-3 sm:gap-4 mx-auto sm:mx-0">
-              {/* Icon Container */}
-              <div className="bg-red-100 rounded-2xl p-2 sm:p-3 shadow-md border border-red-200">
-                <span className="text-3xl sm:text-4xl">🌡️</span>
-              </div>
-              
-              {/* Text Container */}
-              <div className="text-center">
-                <h1 className="font-bold text-2xl sm:text-3xl tracking-wide">
-                  <span className="text-gray-700">موقع </span>
-                  <span className="text-red-600 text-3xl sm:text-4xl">حرارة</span>
-                </h1>
-              </div>
+          <div className="flex items-center justify-center gap-4">
+            {/* Icon Container */}
+            <div className="bg-red-100 rounded-2xl p-3 shadow-md border border-red-200">
+              <span className="text-4xl">🌡️</span>
             </div>
             
-            {/* Right placeholder on desktop */}
-            <div className="hidden sm:block sm:w-24"></div>
+            {/* Text Container */}
+            <div className="text-center">
+              <h1 className="font-bold text-3xl tracking-wide">
+                <span className="text-red-600 text-4xl">Fever Calc</span>
+              </h1>
+            </div>
           </div>
         </div>
       </div>
-      
-      {/* Share Modal */}
-      <ShareModal 
-        isOpen={isShareModalOpen} 
-        onClose={() => setIsShareModalOpen(false)} 
-      />
 
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
@@ -805,11 +788,11 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <h1 className="text-2xl font-bold text-gray-900">
-                حاسبة جرعات أدوية خفض الحرارة و المسكنات للأطفال
+                Fever Reducer & Pain Reliever Dosage Calculator for Children
               </h1>
             </div>
-            <p className="text-right text-gray-600 mb-3">
-              احسب الجرعة الصحيحة لطفلك بناءً على الوزن ونوع الدواء
+            <p className="text-gray-600 mb-3">
+              Calculate the correct dose for your child based on weight and medication type
             </p>
           </div>
         </div>
@@ -821,13 +804,13 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
       <div className="max-w-4xl mx-auto px-4 pb-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
           <TabsList className="grid w-full grid-cols-2 mb-6">
-            <TabsTrigger value="info" className="flex items-center gap-2">
-              <Info className="w-4 h-4" />
-              معلومات طبية
-            </TabsTrigger>
             <TabsTrigger value="calculator" className="flex items-center gap-2">
               <Calculator className="w-4 h-4" />
-              الحاسبة
+              Calculator
+            </TabsTrigger>
+            <TabsTrigger value="info" className="flex items-center gap-2">
+              <Info className="w-4 h-4" />
+              Medical Information
             </TabsTrigger>
           </TabsList>
 
@@ -835,39 +818,23 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
             {/* Weight and Age Input */}
             <Card>
               <CardHeader>
-                <CardTitle className="flex items-center gap-2 justify-end text-right">
-                  معلومات الطفل
+                <CardTitle className="flex items-center gap-2">
                   <Calculator className="w-5 h-5" />
+                  Child Information
                 </CardTitle>
-                <CardDescription className="text-right">
-                  أدخل عمر ووزن الطفل
+                <CardDescription>
+                  Enter child's age and weight
                 </CardDescription>
               </CardHeader>
-              <CardContent className="text-right">
+              <CardContent>
                 <div className="space-y-4">
                   {/* Step 1: Age Category Selection */}
                   <div className="space-y-3">
-                    <label className="text-right text-sm font-medium flex items-center gap-1 justify-end">
-                      كم عمر طفلك؟
+                    <label className="text-sm font-medium flex items-center gap-1">
+                      How old is your child?
                       <span className="text-red-500 text-xs">*</span>
                     </label>
                     <div className="grid grid-cols-2 gap-3">
-                      <Button
-                        type="button"
-                        variant={ageCategory === 'child' ? 'default' : 'outline'}
-                        className="h-20 text-base"
-                        onClick={() => {
-                          setAgeCategory('child')
-                          setAgeUnit('years')
-                          setAge('')
-                        }}
-                      >
-                        <div className="text-center">
-                          <div className="text-2xl mb-1">🧒</div>
-                          <div>أكثر من سنة</div>
-                          <div className="text-right text-xs opacity-70">(1-14 سنة)</div>
-                        </div>
-                      </Button>
                       <Button
                         type="button"
                         variant={ageCategory === 'infant' ? 'default' : 'outline'}
@@ -880,8 +847,24 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                       >
                         <div className="text-center">
                           <div className="text-2xl mb-1">👶</div>
-                          <div>أقل من سنة</div>
-                          <div className="text-right text-xs opacity-70">(1-12 شهر)</div>
+                          <div>Less than 1 year</div>
+                          <div className="text-xs opacity-70">(1-12 months)</div>
+                        </div>
+                      </Button>
+                      <Button
+                        type="button"
+                        variant={ageCategory === 'child' ? 'default' : 'outline'}
+                        className="h-20 text-base"
+                        onClick={() => {
+                          setAgeCategory('child')
+                          setAgeUnit('years')
+                          setAge('')
+                        }}
+                      >
+                        <div className="text-center">
+                          <div className="text-2xl mb-1">🧒</div>
+                          <div>More than 1 year</div>
+                          <div className="text-xs opacity-70">(1-14 years)</div>
                         </div>
                       </Button>
                     </div>
@@ -889,27 +872,27 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
                   {/* Step 2: Specific Age Selection */}
                   {ageCategory && (
-                    <div className="space-y-2 animate-in slide-in-from-top-2 duration-300 flex flex-col items-end">
-                      <label className="text-right text-sm font-medium block text-right">
-                        {ageCategory === 'infant' ? 'اختر العمر بالأشهر' : 'اختر العمر بالسنوات'}
+                    <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
+                      <label className="text-sm font-medium">
+                        {ageCategory === 'infant' ? 'Select age in months' : 'Select age in years'}
                       </label>
-                      <Select value={age} onValueChange={setAge} dir="rtl">
-                        <SelectTrigger className="text-lg text-right">
-                          <SelectValue placeholder={ageCategory === 'infant' ? 'اختر الأشهر' : 'اختر السنوات'} />
+                      <Select value={age} onValueChange={setAge}>
+                        <SelectTrigger className="text-lg">
+                          <SelectValue placeholder={ageCategory === 'infant' ? 'Select months' : 'Select years'} />
                         </SelectTrigger>
                         <SelectContent>
                           {ageCategory === 'infant' ? (
                             // 1-12 months
                             Array.from({ length: 12 }, (_, i) => i + 1).map(month => (
                               <SelectItem key={month} value={month.toString()}>
-                                {month} {month === 1 ? 'شهر' : month === 2 ? 'شهران' : 'أشهر'}
+                                {month} {month === 1 ? 'month' : 'months'}
                               </SelectItem>
                             ))
                           ) : (
                             // 1-14 years
                             Array.from({ length: 14 }, (_, i) => i + 1).map(year => (
                               <SelectItem key={year} value={year.toString()}>
-                                {year} {year === 1 ? 'سنة' : year === 2 ? 'سنتان' : 'سنوات'}
+                                {year} {year === 1 ? 'year' : 'years'}
                               </SelectItem>
                             ))
                           )}
@@ -920,18 +903,18 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
                   {/* Step 3: Weight Selection */}
                   {age && (
-                    <div className="space-y-2 animate-in slide-in-from-top-2 duration-300 flex flex-col items-end">
-                      <label className="text-right text-sm font-medium block text-right">وزن الطفل (كيلوغرام)</label>
-                      <Select value={weight} onValueChange={setWeight} dir="rtl">
-                        <SelectTrigger className="text-lg text-right">
-                          <SelectValue placeholder="اختر الوزن" />
+                    <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
+                      <label className="text-sm font-medium">Child's Weight (kg)</label>
+                      <Select value={weight} onValueChange={setWeight}>
+                        <SelectTrigger className="text-lg">
+                          <SelectValue placeholder="Select weight" />
                         </SelectTrigger>
                         <SelectContent>
                           {ageCategory === 'infant' ? (
                             // Infant (< 1 year): 3-16 kg, every 0.5 kg
                             Array.from({ length: 27 }, (_, i) => 3 + (i * 0.5)).map(w => (
                               <SelectItem key={w} value={w.toString()}>
-                                {w} كجم
+                                {w} kg
                               </SelectItem>
                             ))
                           ) : (
@@ -940,19 +923,19 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                               {/* 6-15 kg: Every 0.5 kg */}
                               {Array.from({ length: 19 }, (_, i) => 6 + (i * 0.5)).map(w => (
                                 <SelectItem key={w} value={w.toString()}>
-                                  {w} كجم
+                                  {w} kg
                                 </SelectItem>
                               ))}
                               {/* 16-30 kg: Every 1 kg */}
                               {Array.from({ length: 15 }, (_, i) => i + 16).map(w => (
                                 <SelectItem key={w} value={w.toString()}>
-                                  {w} كجم
+                                  {w} kg
                                 </SelectItem>
                               ))}
                               {/* 31-60 kg: Every 1 kg */}
                               {Array.from({ length: 30 }, (_, i) => 31 + i).map(w => (
                                 <SelectItem key={w} value={w.toString()}>
-                                  {w} كجم
+                                  {w} kg
                                 </SelectItem>
                               ))}
                             </>
@@ -968,25 +951,25 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
             {/* Medication Selection */}
             <div className="space-y-6">
               <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-right">اختر شكل الدواء:</h2>
+                <h2 className="text-xl font-semibold">Select medication form:</h2>
                 
                 {/* Medication Type Selection */}
                 <div className="flex gap-4 justify-center">
-                  <Button
-                    variant={medicationType === 'suppository' ? 'default' : 'outline'}
-                    onClick={() => changeMedicationType('suppository')}
-                    className="flex items-center gap-2 px-6 py-3"
-                  >
-                    <span>💊</span>
-                    <span>التحاميل</span>
-                  </Button>
                   <Button
                     variant={medicationType === 'syrup' ? 'default' : 'outline'}
                     onClick={() => changeMedicationType('syrup')}
                     className="flex items-center gap-2 px-6 py-3"
                   >
                     <span>💧</span>
-                    <span>الشراب</span>
+                    <span>Syrup</span>
+                  </Button>
+                  <Button
+                    variant={medicationType === 'suppository' ? 'default' : 'outline'}
+                    onClick={() => changeMedicationType('suppository')}
+                    className="flex items-center gap-2 px-6 py-3"
+                  >
+                    <span>💊</span>
+                    <span>Suppositories</span>
                   </Button>
                 </div>
               </div>
@@ -995,21 +978,21 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                 <>
                   {/* Paracetamol Section */}
                   <div>
-                    <div className="flex items-center gap-2 mb-4 justify-end">
-                      <h3 className="text-right text-lg font-semibold text-blue-700">أدوية الباراسيتامول</h3>
+                    <div className="flex items-center gap-2 mb-4">
                       <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                      <h3 className="text-lg font-semibold text-blue-700">Paracetamol medications</h3>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2">
-                      {medicationsData.paracetamol.map(med => (
+                      {medications.paracetamol.map(med => (
                         <MedicationCard key={med.id} medication={med} category="paracetamol" />
                       ))}
                     </div>
                     
                     {/* Note about same concentration */}
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                      <p className="text-right text-sm text-blue-800 leading-relaxed">
-                        إذا كان لديك دواء باراسيتامول و لم تجده في الصور أعلاه، بإمكانك إختيار الدواء الذي يحتوي على 
-                        نفس التركيز و ستظهر لك نفس الجرعه المطلوبه، على سبيل المثال تركيز{' '}
+                      <p className="text-sm text-blue-800 leading-relaxed">
+                        If you have a Paracetamol medication and didn't find it in the images above, you can select the medication with the same concentration and you will get the same required dose. For example, concentration 
+                        {' '}
                         <span className="font-bold text-blue-600" dir="ltr">120mg/5ml</span>
                       </p>
                     </div>
@@ -1017,26 +1000,26 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
                   {/* Ibuprofen Section */}
                   <div>
-                    <div className="flex items-center gap-2 mb-2 justify-end">
-                      <Badge variant="outline" className="text-green-600">
-                        العمر أكبر من 6 أشهر
-                      </Badge>
-                      <h3 className="text-right text-lg font-semibold text-green-700">أدوية الآيبوبروفين</h3>
+                    <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                      <h3 className="text-lg font-semibold text-green-700">Ibuprofen Medications</h3>
+                      <Badge variant="outline" className="text-green-600">
+                        Age over 6 months
+                      </Badge>
                     </div>
                     
                     {/* Additional Information */}
                     <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-right text-sm text-green-800 leading-relaxed">
-                        للحرارة او الالم الذي لا يستجيب للباراسيتامول، قد ينصح طبيبك بأخذ خافض او مسكن أقوى مثل آيبوبروفين و التبديل بينه و بين الباراسيتامول كل ٤ ساعات، اذا لزم الأمر
+                      <p className="text-sm text-green-800 leading-relaxed">
+                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as ibuprofen, alternating with paracetamol every 4 hours if necessary
                       </p>
-                      <p className="text-right text-sm text-green-700 font-medium mt-2">
-                        <strong>ملاحظة:</strong> آيبوبروفين لا يتعارض مع الباراسيتامول و بالإمكان أخذهم في نفس الوقت
+                      <p className="text-sm text-green-700 font-medium mt-2">
+                        <strong>Note:</strong> Ibuprofen does not interact with paracetamol and can be taken at the same time
                       </p>
                     </div>
                     
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {medicationsData.ibuprofen.map(med => (
+                      {medications.ibuprofen.map(med => (
                         <MedicationCard key={med.id} medication={med} category="ibuprofen" />
                       ))}
                     </div>
@@ -1046,41 +1029,41 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
               {medicationType === 'suppository' && (
                 <>
-                  {/* Paracetamol Suppositories Section */}
+                  {/* Paracetamol Suppositories Section - Show ALL */}
                   <div>
-                    <div className="flex items-center gap-2 mb-4 justify-end">
-                      <h3 className="text-right text-lg font-semibold text-blue-700">تحاميل الباراسيتامول</h3>
+                    <div className="flex items-center gap-2 mb-4">
                       <div className="w-4 h-4 bg-blue-500 rounded-full"></div>
+                      <h3 className="text-lg font-semibold text-blue-700">Paracetamol Suppositories</h3>
                     </div>
                     <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-                      {suppositoriesData.paracetamol.map(med => (
+                      {suppositories.paracetamol.map(med => (
                         <MedicationCard key={med.id} medication={med} category="paracetamol_supp" />
                       ))}
                     </div>
                   </div>
                   
-                  {/* Diclofenac Suppositories Section */}
+                  {/* Diclofenac Suppositories Section - Show ALL */}
                   <div>
-                    <div className="flex items-center gap-2 mb-2 justify-end">
-                      <Badge variant="outline" className="text-green-600">
-                        العمر أكبر من سنة
-                      </Badge>
-                      <h3 className="text-right text-lg font-semibold text-green-700">تحاميل الديكلوفيناك</h3>
+                    <div className="flex items-center gap-2 mb-2">
                       <div className="w-4 h-4 bg-green-500 rounded-full"></div>
+                      <h3 className="text-lg font-semibold text-green-700">Diclofenac Suppositories</h3>
+                      <Badge variant="outline" className="text-green-600">
+                        For children over 1 year
+                      </Badge>
                     </div>
                     
                     {/* Additional Information */}
                     <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
-                      <p className="text-right text-sm text-green-800 leading-relaxed">
-                        للحرارة او الالم الذي لا يستجيب للباراسيتامول، قد ينصح طبيبك بأخذ خافض او مسكن أقوى مثل تحاميل الديكلوفيناك
+                      <p className="text-sm text-green-800 leading-relaxed">
+                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
                       </p>
-                      <p className="text-right text-sm text-green-700 font-medium mt-2">
-                        <strong>ملاحظة:</strong> تحاميل الديكلوفيناك لا تتعارض مع الباراسيتامول، لكنها تنتمي لنفس عائلة شراب آيبوبروفين يجب عدم أخذهم في نفس الوقت و ترك ٨ ساعات بينهم
+                      <p className="text-sm text-green-700 font-medium mt-2">
+                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
                       </p>
                     </div>
                     
                     <div className="grid gap-4 md:grid-cols-2">
-                      {suppositoriesData.diclofenac.map(med => (
+                      {suppositories.diclofenac.map(med => (
                         <MedicationCard key={med.id} medication={med} category="diclofenac_supp" />
                       ))}
                     </div>
@@ -1097,14 +1080,14 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                   disabled={!weight || !age || !ageUnit || !selectedMedication}
                   className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 text-lg"
                 >
-                  احسب الجرعة
+                  Calculate Dose
                 </Button>
                 <Button 
                   onClick={resetForm}
                   variant="outline"
                   className="px-8 py-3 text-lg"
                 >
-                  إعادة تعيين
+                  Reset
                 </Button>
               </div>
             )}
@@ -1115,7 +1098,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                   variant="outline"
                   className="px-8 py-3 text-lg"
                 >
-                  إعادة تعيين
+                  Reset
                 </Button>
               </div>
             )}
@@ -1123,9 +1106,9 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
             {/* Results */}
             <Card id="results-section" className="transition-all duration-500">
               <CardHeader>
-                <CardTitle className="text-right">نتيجة الحساب</CardTitle>
+                <CardTitle>Calculation Result</CardTitle>
               </CardHeader>
-              <CardContent className="text-right">
+              <CardContent>
                 {result ? (
                   result.error ? (
                     <Alert className="bg-red-50 border-red-200">
@@ -1137,41 +1120,40 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <h3 className="text-right font-semibold text-green-800 mb-2">الجرعة المحسوبة:</h3>
+                        <h3 className="font-semibold text-green-800 mb-2">Calculated Dose:</h3>
                         <div className="grid gap-2 text-sm">
                           {result.isSuppository ? (
-                            <p className="text-right text-lg font-bold text-green-700">
-                              <strong>عدد التحاميل:</strong> {result.suppositories} تحميلة
+                            <p className="text-lg font-bold text-green-700">
+                              <strong>Number of Suppositories:</strong> {result.suppositories} suppository
                             </p>
                           ) : (
-                            <p className="text-right text-lg font-bold text-green-700">
-                              <strong>الكمية المطلوبة:</strong> {result.volume} مل
+                            <p className="text-lg font-bold text-green-700">
+                              <strong>Required Amount:</strong> {result.volume} ml
                             </p>
                           )}
-                          <p><strong>الدواء:</strong> {result.medication.name}</p>
-                          <p><strong>وزن الطفل:</strong> {result.weight} كيلوغرام</p>
-                          <p><strong>التكرار:</strong> {result.frequency}</p>
-                          <p><strong>الحد الأقصى يومياً:</strong> {result.maxDailyDoses} جرعات</p>
+                          <p><strong>Medication:</strong> {result.medication.name}</p>
+                          <p><strong>Child's Weight:</strong> {result.weight} kg</p>
+                          <p><strong>Frequency:</strong> {result.frequency}</p>
+                          <p><strong>Maximum Daily:</strong> {result.maxDailyDoses} doses</p>
                           {/* NSAIDs Warning for Ibuprofen and Diclofenac */}
-                          {(result.medication.ingredient === 'آيبوبروفين' || result.medication.ingredient === 'ديكلوفيناك') && (
+                          {(result.medication.ingredient === 'Ibuprofen' || result.medication.ingredient === 'Diclofenac') && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
-                              <p className="text-right text-orange-800 text-sm font-medium">
-                                لاتجمع بين شراب آيبوبروفين و تحاميل الديكلوفيناك في نفس الوقت يجب ترك ٨ ساعات بينهم
+                              <p className="text-orange-800 text-sm font-medium">
+                                Do not combine ibuprofen syrup and diclofenac suppositories at the same time; leave 8 hours between them
                               </p>
                             </div>
                           )}
                           {/* Developer Credit */}
                           <div className="mt-3 pt-3 border-t border-green-300">
-                            <p className="text-right text-xs text-gray-600 flex items-center justify-center gap-1">
-                              <span className="text-gray-800">تم تطويره بواسطة</span>
-                              {' '}
+                            <p className="text-xs text-gray-600 flex items-center justify-center gap-1">
+                              Developed by{' '}
                               <a 
                                 href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                                 target="_blank" 
                                 rel="noopener noreferrer"
                                 className="text-blue-600 hover:text-blue-800 font-semibold"
                               >
-                                د.سعد بن فهد المديميغ
+                                Dr. Saad Fahad Almodameg
                               </a>
                               {' '}
                               <a 
@@ -1198,24 +1180,24 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                           }}
                           className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-2 rounded-lg shadow-md transition-colors duration-200">
                           <Info className="h-4 w-4 ml-2" />
-                          للأسئلة الشائعة و للشرح الإضافي اضغط هنا
+                          For FAQs and additional explanation, click here
                         </Button>
                       </div>
                       
                       {/* Warning Alert - Moved from top */}
                       <div className="mt-6">
-                        <Alert className="bg-orange-50 border-orange-200" dir="rtl">
+                        <Alert className="bg-orange-50 border-orange-200">
                           <AlertTriangle className="h-4 w-4 text-orange-600" />
                           <AlertDescription className="text-orange-800">
-                            <strong className="block text-right">تنبيه مهم:</strong>
-                            <ul className="list-disc mt-2 space-y-1" style={{listStylePosition: 'inside', direction: 'rtl', paddingRight: '1.5rem'}}>
-                              <li>هذه الحاسبة للإرشاد فقط. استشر الطبيب دائماً قبل إعطاء أي دواء لطفلك. لا تتجاوز الجرعة المحددة ولا تعطِ الدواء لأكثر من 3-5 أيام دون استشارة طبية.</li>
+                            <strong>Important Warning:</strong>
+                            <ul className="list-disc mt-2 space-y-1" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
+                              <li>This calculator is for guidance only. Always consult a doctor before giving any medication to your child. Do not exceed the recommended dose and do not give medication for more than 3-5 days without medical consultation.</li>
                               {(() => {
                                 const ageValue = convertArabicToEnglish(age)
                                 const ageNum = parseFloat(ageValue)
                                 const ageInMonths = ageUnit === 'years' ? ageNum * 12 : ageNum
                                 return ageUnit === 'months' && ageInMonths === 1 && (
-                                  <li>للرضع أقل من شهر عند وجود حرارة الأفضل عدم إعطاء خافض الحرارة و التوجه للمستشفى للكشف على الطفل.</li>
+                                  <li>For infants under one month with fever, it's best not to give fever reducers and go to the hospital for examination.</li>
                                 )
                               })()}
                             </ul>
@@ -1225,8 +1207,8 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                     </div>
                   )
                 ) : (
-                  <p className="text-right text-gray-500 text-center py-8">
-                    أدخل عمر ووزن الطفل واختر الدواء لحساب الجرعة
+                  <p className="text-gray-500 text-center py-8">
+                    Enter child's age and weight and select medication to calculate dose
                   </p>
                 )}
               </CardContent>
@@ -1240,54 +1222,54 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Info className="h-5 w-5 text-blue-600" />
-                    دليل عائلات الأدوية الشامل
+                    Comprehensive Drug Families Guide
                   </CardTitle>
-                  <CardDescription className="text-right">
-                    تعرف على أنواع الأدوية المختلفة وآلية عملها والأسماء التجارية المتوفرة
+                  <CardDescription>
+                    Learn about different types of medications, how they work, and available brand names
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="text-right">
+                <CardContent>
                   <Accordion type="single" collapsible className="w-full">
-                    {/* Paracetamol/Acetaminophen Family */}
+                     {/* Paracetamol Family */}
                     <AccordionItem value="paracetamol">
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Pill className="h-5 w-5 text-blue-600" />
-                          <span className="text-lg font-semibold">عائلة الباراسيتامول (أسيتامينوفين)</span>
+                          <span className="text-lg font-semibold">Paracetamol Family</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <div className="bg-purple-50 p-4 rounded-lg">
                           <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                             <Users className="h-4 w-4" />
-                            الأسماء التجارية الشهيرة
+                            Popular Brand Names
                           </h4>
                           <div className="text-purple-800 text-sm mb-3">
-                            متوفر بأشكال: <strong>تحاميل، شراب، قطرات</strong>
+                            Available forms: <strong>suppositories, syrup, drops</strong>
                           </div>
                           
                           {/* Note about same concentration */}
                           <div className="mb-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                            <p className="text-right text-sm text-blue-800 leading-relaxed">
-                              إذا كان لديك دواء باراسيتامول و لم تجده في الصور، بإمكانك إختيار الدواء الذي يحتوي على 
-                              نفس التركيز و ستظهر لك نفس الجرعه المطلوبه، على سبيل المثال تركيز{' '}
+                            <p className="text-sm text-blue-800 leading-relaxed">
+                              If you have a Paracetamol medication and didn't find it in the images, you can select the medication with the same concentration and you will get the same required dose. For example, concentration 
+                              {' '}
                               <span className="font-bold text-blue-600" dir="ltr">120mg/5ml</span>
                             </p>
                           </div>
                           <div className="grid gap-2 text-purple-800 text-sm">
-                            <div>• بيديامول - Pediamol</div>
-                            <div>• إيميدول - Emidol</div>
-                            <div>• أومول - Omol</div>
-                            <div>• ديفادول - Defadol</div>
-                            <div>• فيفادول - Fevadol</div>
-                            <div>• كالبل - Calpol</div>
-                            <div>• بانادول - Panadol</div>
-                            <div>• ريفانين - Revani</div>
-                            <div>• بانادريكس - Panadrex</div>
-                            <div>• أدول - Adol</div>
-                            <div>• تايلينول - Tylenol</div>
-                            <div>• سيتال - Cetal</div>
-                            <div>• تمبرا - Tempra</div>
+                            <div>• Pediamol</div>
+                            <div>• Emidol</div>
+                            <div>• Omol</div>
+                            <div>• Defadol - Defadol</div>
+                            <div>• Fevadol - Fevadol</div>
+                            <div>• Calpol</div>
+                            <div>• Panadol - Panadol</div>
+                            <div>• Revani</div>
+                            <div>• Panadrex</div>
+                            <div>• Adol - Adol</div>
+                            <div>• Tylenol - Tylenol</div>
+                            <div>• Cetal</div>
+                            <div>• Tempra</div>
                           </div>
                         </div>
                       </AccordionContent>
@@ -1298,30 +1280,30 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Flame className="h-5 w-5 text-red-600" />
-                          <span className="text-lg font-semibold">عائلة آيبوبروفين و الديكلوفيناك NSAIDs</span>
+                          <span className="text-lg font-semibold">Ibuprofen & Diclofenac "NSAIDs" Family</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <Tabs defaultValue="ibuprofen" className="w-full">
                           <TabsList className="grid w-full grid-cols-2">
-                            <TabsTrigger value="ibuprofen">الآيبوبروفين</TabsTrigger>
-                            <TabsTrigger value="diclofenac">الديكلوفيناك</TabsTrigger>
+                            <TabsTrigger value="ibuprofen">Ibuprofen</TabsTrigger>
+                            <TabsTrigger value="diclofenac">Diclofenac</TabsTrigger>
                           </TabsList>
                           
                           <TabsContent value="ibuprofen" className="space-y-4">
                             <div className="bg-purple-50 p-4 rounded-lg">
                               <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                الأسماء التجارية الشهيرة
+                                Popular Brand Names
                               </h4>
                               <div className="text-purple-800 text-sm mb-3">
-                                متوفر بأشكال: <strong>شراب</strong>
+                                Available forms: <strong>Syrup</strong>
                               </div>
                               <div className="grid gap-2 text-purple-800 text-sm">
-                                <div>• نيوروفين - Nurofen</div>
-                                <div>• بروفين - Brufen</div>
-                                <div>• بروفينال - Profinal</div>
-                                <div>• سابوفين - Sapofen</div>
+                                <div>• Nurofen - Nurofen</div>
+                                <div>• Brufen - Brufen</div>
+                                <div>• Profinal - Profinal</div>
+                                <div>• Sapofen - Sapofen</div>
                               </div>
                             </div>
                           </TabsContent>
@@ -1330,15 +1312,16 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <div className="bg-purple-50 p-4 rounded-lg">
                               <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                الأسماء التجارية الشهيرة
+                                Popular Brand Names
                               </h4>
                               <div className="text-purple-800 text-sm mb-3">
-                                متوفر بأشكال: <strong>تحاميل</strong>
+                                Available forms: <strong>suppositories</strong>
                               </div>
                               <div className="grid gap-2 text-purple-800 text-sm">
-                                <div>• فولتارين - Voltaren</div>
-                                <div>• روفيناك - Rofenac</div>
-                                <div>• ديكلوفين - Diclofen</div>
+                                <div>• Voltaren - Voltaren</div>
+                                <div>• Rofenac - Rofenac</div>
+                                <div>• Diclofen</div>
+                                <div>• Olfen</div>
                               </div>
                             </div>
                           </TabsContent>
@@ -1351,39 +1334,39 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Shield className="h-5 w-5 text-green-600" />
-                          <span className="text-lg font-semibold">مقارنة الأدوية وإرشادات الاستخدام</span>
-                          <Badge variant="secondary" className="bg-green-100 text-green-800">دليل شامل</Badge>
+                          <span className="text-lg font-semibold">Drug Comparison and Usage Guidelines</span>
+                          <Badge variant="secondary" className="bg-green-100 text-green-800">Full Guide</Badge>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         {/* Comparison Table */}
                         <div className="bg-gray-50 p-3 md:p-6 rounded-lg">
-                          <h4 className="font-semibold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">جدول مقارنة الأدوية</h4>
+                          <h4 className="font-semibold text-gray-900 mb-3 md:mb-4 text-center text-sm md:text-base">Drug Comparison Table</h4>
                           
                           {/* Mobile Card View */}
                           <div className="md:hidden space-y-3">
                             {/* Paracetamol Card */}
                             <div className="bg-white border-2 border-blue-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-blue-700 mb-2 text-sm">الباراسيتامول</h5>
+                              <h5 className="text-center font-bold text-blue-700 mb-2 text-sm">Paracetamol</h5>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">العمر الأدنى:</span>
-                                  <span className="text-blue-700">شهرين</span>
+                                  <span className="font-medium text-gray-700">Minimum Age:</span>
+                                  <span className="text-blue-700">2 months</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">مدة التأثير:</span>
-                                  <span className="text-blue-700">4-6 ساعات</span>
+                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
+                                  <span className="text-blue-700">4-6 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الحد الأقصى يومياً:</span>
-                                  <span className="text-blue-700">5 جرعات</span>
+                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="text-blue-700">5 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الأشكال المتوفرة:</span>
-                                  <span className="text-blue-700">قطرات، شراب، تحاميل</span>
+                                  <span className="font-medium text-gray-700">Available Forms:</span>
+                                  <span className="text-blue-700">Drops, Syrup, suppositories</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">تحذير مهم:</span>
+                                  <span className="font-medium text-gray-700">Important Warning:</span>
                                   <span className="text-blue-700">-</span>
                                 </div>
                               </div>
@@ -1391,56 +1374,56 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
                             {/* Ibuprofen Card */}
                             <div className="bg-white border-2 border-red-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">الآيبوبروفين</h5>
-                              <p className="text-right text-center text-xs text-red-500 mb-2">NSAIDs</p>
+                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Ibuprofen</h5>
+                              <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">العمر الأدنى:</span>
-                                  <span className="text-red-700">6 أشهر</span>
+                                  <span className="font-medium text-gray-700">Minimum Age:</span>
+                                  <span className="text-red-700">6 months</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">مدة التأثير:</span>
-                                  <span className="text-red-700">6-8 ساعات</span>
+                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
+                                  <span className="text-red-700">6-8 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الحد الأقصى يومياً:</span>
-                                  <span className="text-red-700">3 جرعات</span>
+                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="text-red-700">3 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الأشكال المتوفرة:</span>
-                                  <span className="text-red-700">شراب أساساً</span>
+                                  <span className="font-medium text-gray-700">Available Forms:</span>
+                                  <span className="text-red-700">Mainly Syrup</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">تحذير مهم:</span>
-                                  <span className="text-red-700">لا تجمع مع الديكلوفيناك</span>
+                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="text-red-700">Do not combine with Diclofenac</span>
                                 </div>
                               </div>
                             </div>
 
                             {/* Diclofenac Card */}
                             <div className="bg-white border-2 border-red-200 rounded-lg p-3">
-                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">الديكلوفيناك</h5>
-                              <p className="text-right text-center text-xs text-red-500 mb-2">NSAIDs</p>
+                              <h5 className="text-center font-bold text-red-700 mb-1 text-sm">Diclofenac</h5>
+                              <p className="text-center text-xs text-red-500 mb-2">NSAIDs</p>
                               <div className="space-y-1.5 text-xs">
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">العمر الأدنى:</span>
-                                  <span className="text-red-700">سنة واحدة</span>
+                                  <span className="font-medium text-gray-700">Minimum Age:</span>
+                                  <span className="text-red-700">1 year</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">مدة التأثير:</span>
-                                  <span className="text-red-700">8-12 ساعة</span>
+                                  <span className="font-medium text-gray-700">Duration of Effect:</span>
+                                  <span className="text-red-700">8-12 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الحد الأقصى يومياً:</span>
-                                  <span className="text-red-700">2 جرعة</span>
+                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="text-red-700">2 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">الأشكال المتوفرة:</span>
-                                  <span className="text-red-700">تحاميل فقط</span>
+                                  <span className="font-medium text-gray-700">Available Forms:</span>
+                                  <span className="text-red-700">Suppositories only</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">تحذير مهم:</span>
-                                  <span className="text-red-700">لا تجمع مع الآيبوبروفين</span>
+                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="text-red-700">Do not combine with Ibuprofen</span>
                                 </div>
                               </div>
                             </div>
@@ -1451,48 +1434,48 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <table className="min-w-full text-sm border-collapse bg-white">
                               <thead>
                                 <tr className="border-b border-gray-300">
-                                  <th className="text-right p-3 font-semibold whitespace-nowrap">الخاصية</th>
-                                  <th className="text-center p-3 font-semibold text-blue-700 whitespace-nowrap">الباراسيتامول</th>
+                                  <th className="text-right p-3 font-semibold whitespace-nowrap">Property</th>
+                                  <th className="text-center p-3 font-semibold text-blue-700 whitespace-nowrap">Paracetamol</th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
-                                    الآيبوبروفين
-                                    <div className="text-right text-xs text-red-500 mt-1">NSAIDs</div>
+                                    Ibuprofen
+                                    <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                   <th className="text-center p-3 font-semibold text-red-700 whitespace-nowrap">
-                                    الديكلوفيناك
-                                    <div className="text-right text-xs text-red-500 mt-1">NSAIDs</div>
+                                    Diclofenac
+                                    <div className="text-xs text-red-500 mt-1">NSAIDs</div>
                                   </th>
                                 </tr>
                               </thead>
                               <tbody className="divide-y divide-gray-200">
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">العمر الأدنى</td>
-                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">شهرين</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6 أشهر</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">سنة واحدة</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Minimum Age</td>
+                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">2 months</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6 months</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">1 year</td>
                                 </tr>
                                 <tr className="bg-gray-25">
-                                  <td className="p-3 font-medium whitespace-nowrap">مدة التأثير</td>
-                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">4-6 ساعات</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6-8 ساعات</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">8-12 ساعة</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Duration of Effect</td>
+                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">4-6 hours</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">6-8 hours</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">8-12 hours</td>
                                 </tr>
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">الحد الأقصى يومياً</td>
-                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 جرعات</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">3 جرعات</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">2 جرعة</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Maximum Daily Doses</td>
+                                  <td className="p-3 text-center text-blue-700 whitespace-nowrap">5 doses</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">3 doses</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">2 doses</td>
                                 </tr>
                                 <tr className="bg-gray-25">
-                                  <td className="p-3 font-medium whitespace-nowrap">الأشكال المتوفرة</td>
-                                  <td className="p-3 text-center text-blue-700">قطرات، شراب، تحاميل</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">شراب أساساً</td>
-                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">تحاميل فقط</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Available Forms</td>
+                                  <td className="p-3 text-center text-blue-700">Drops, Syrup, suppositories</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">Mainly Syrup</td>
+                                  <td className="p-3 text-center text-red-700 whitespace-nowrap">Suppositories only</td>
                                 </tr>
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">تحذير مهم</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">لا تجمع مع الديكلوفيناك</td>
-                                  <td className="p-3 text-center text-red-700 text-xs">لا تجمع مع الآيبوبروفين</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenac</td>
+                                  <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofen</td>
                                 </tr>
                               </tbody>
                             </table>
@@ -1510,10 +1493,10 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                 <CardHeader className="p-4 md:p-6">
                   <CardTitle className="flex items-center gap-2 text-base md:text-lg">
                     <Info className="h-4 w-4 md:h-5 md:w-5 text-yellow-600" />
-                    الأسئلة الشائعة حول أدوية خفض الحرارة للأطفال
+                    Frequently Asked Questions About Fever Reducers for Children
                   </CardTitle>
                   <CardDescription className="text-xs md:text-sm">
-                    إجابات على الأسئلة الأكثر شيوعاً حول استخدام أدوية خفض الحرارة للأطفال
+                    Answers to the most common questions about using fever reducers for children
                   </CardDescription>
                 </CardHeader>
                 <CardContent className="p-3 md:p-6">
@@ -1527,14 +1510,14 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <span className="text-blue-600 font-bold text-xs md:text-sm">1</span>
                           </div>
                           <span className="text-blue-800 font-semibold text-sm md:text-lg">
-                            ما الفرق بين أدوية الباراسيتامول، وأدوية (آيبوبروفين و الديكولفيناك)؟
+                            What is the difference between paracetamol medications and (ibuprofen and diclofenac) medications?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-blue-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
-                          <p className="text-right text-blue-800 text-sm md:text-base">
-                            كلاهما خافض حرارة و مسكن. ولكن (آيبوبروفين و الديكلوفناك) يعتبرون أقوى في تخفيض الحرارة و الالم من عائلة الباراسيتامول.
+                          <p className="text-blue-800 text-sm md:text-base">
+                            Both are fever reducers and pain relievers. However, (ibuprofen and diclofenac) are considered stronger in reducing fever and pain than the paracetamol family.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1548,14 +1531,14 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <span className="text-green-600 font-bold text-sm">2</span>
                           </div>
                           <span className="text-green-800 font-semibold text-sm md:text-lg">
-                            هل يوجد تعارض بين أدوية الباراسيتامول و أدوية (آيبوبروفين و الديكلوفيناك)؟
+                            Is there an interaction between paracetamol and (ibuprofen and diclofenac) medications?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-green-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
-                          <p className="text-right text-green-800">
-                            لا يوجد تعارض بينهم، و بالإمكان اخذهم في نفس الوقت، و لكن قد يوصي طبيبك بوقت معين بينهم مثل كل ٤ ساعات بين الباراسيتامول و آيبوبروفين ليكون بمقدورك إعطاء أدوية على مدار اليوم.
+                          <p className="text-green-800">
+                            There is no interaction between them, and they can be taken at the same time, but your doctor may recommend a specific time between them, such as every 4 hours between paracetamol and ibuprofen, so you can give medications throughout the day.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1569,7 +1552,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <span className="text-orange-600 font-bold text-sm">3</span>
                           </div>
                           <span className="text-orange-800 font-semibold text-sm md:text-lg">
-                            ماهي الأدوية التي لا يجب الجمع بينهم في نفس الوقت؟
+                            Which medications should not be combined at the same time?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1577,10 +1560,10 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                         <div className="bg-orange-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <div className="text-orange-800 space-y-2">
                             <p>
-                              <strong className="text-red-600">لاتجمع بين أدوية تحتوي على الباراسيتامول</strong> في نفس الوقت يجب ان يكون بينهم ٤-٦ ساعات.
+                              <strong className="text-red-600">Do not combine medications containing Paracetamol</strong> at the same time - there must be 4-6 hours between them.
                             </p>
                             <p>
-                              <strong className="text-red-600">و لاتجمع بين أدوية تحتوي على آيبوبروفين او الديكلوفيناك</strong> في نفس الوقت يجب ان يكون بينهم ٨ ساعات.
+                              <strong className="text-red-600">And do not combine medications containing Ibuprofen (Brufen) or Diclofenac</strong> at the same time - there must be 8 hours between them.
                             </p>
                           </div>
                         </div>
@@ -1595,7 +1578,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                             <span className="text-teal-600 font-bold text-sm">4</span>
                           </div>
                           <span className="text-teal-800 font-semibold text-sm md:text-lg">
-                            هل يجب أخذ الأدوية بعد الأكل او على معدة فارغة؟
+                            Should medications be taken after eating or on an empty stomach?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1603,10 +1586,10 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                         <div className="bg-teal-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <div className="text-teal-800 space-y-2">
                             <p>
-                              <strong className="text-blue-600">أدوية الباراسيتامول</strong> بالأمكان اخذها على معدة فارغة.
+                              <strong className="text-blue-600">Paracetamol medications</strong> can be taken on an empty stomach.
                             </p>
                             <p>
-                              <strong className="text-red-600">أدوية آيبوبروفين</strong> يفضل اخذها بعد الاكل او بعد وجبة خفيفة.
+                              <strong className="text-red-600">Ibuprofen (Brufen) medications</strong> are preferably taken after food or a light meal.
                             </p>
                           </div>
                         </div>
@@ -1622,13 +1605,13 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
               <Alert className="bg-red-50 border-red-200">
                 <AlertTriangle className="h-4 w-4 text-red-600" />
                 <AlertDescription className="text-red-800">
-                  <strong className="block mb-2 text-right">تحذيرات مهمة للسلامة:</strong>
-                  <ul className="list-disc space-y-1 text-sm" style={{listStylePosition: 'inside', direction: 'rtl', paddingRight: '1.5rem'}}>
-                    <li>لا تتجاوز الجرعة المحددة أو عدد المرات المسموح أبداً</li>
-                    <li>لا تعطِ أكثر من نوع دواء يحتوي على نفس المادة الفعالة</li>
-                    <li>لا تستخدم الدواء لأكثر من 3-5 أيام دون استشارة طبية</li>
-                    <li>تأكد من عدم وجود حساسية للدواء قبل الاستخدام</li>
-                    <li>احفظ جميع الأدوية بعيداً عن متناول الأطفال</li>
+                  <strong className="block mb-2">Important Safety Warnings:</strong>
+                  <ul className="list-disc space-y-1 text-sm" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
+                    <li>Never exceed the recommended dose or allowed frequency</li>
+                    <li>Do not give more than one type of medication containing the same active ingredient</li>
+                    <li>Do not use medication for more than 3-5 days without medical consultation</li>
+                    <li>Ensure there is no allergy to the medication before use</li>
+                    <li>Keep all medications out of reach of children</li>
                   </ul>
                 </AlertDescription>
               </Alert>
@@ -1652,7 +1635,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                 <div className="relative w-full max-w-lg">
                   <img 
                     src={enlargedImage.images ? enlargedImage.images[currentImageIndex] : enlargedImage.image} 
-                    alt={`${enlargedImage.name} - صورة ${currentImageIndex + 1}`}
+                    alt={`${enlargedImage.name} - Image ${currentImageIndex + 1}`}
                     className="w-full max-h-96 object-contain rounded-lg shadow-lg"
                   />
                   
@@ -1665,7 +1648,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                           prev === 0 ? enlargedImage.images.length - 1 : prev - 1
                         )}
                         className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-all"
-                        title="الصورة السابقة"
+                        title="الImage السابقة"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -1678,7 +1661,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                           prev === enlargedImage.images.length - 1 ? 0 : prev + 1
                         )}
                         className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-black bg-opacity-50 hover:bg-opacity-70 text-white p-2 rounded-full transition-all"
-                        title="الصورة التالية"
+                        title="الImage التالية"
                       >
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -1693,7 +1676,7 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
                   <div className="flex flex-col items-center gap-2">
                     <div className="flex items-center gap-2">
                       <span className="text-sm text-gray-600">
-                        صورة {currentImageIndex + 1} من {enlargedImage.images.length}
+                        Image {currentImageIndex + 1} of {enlargedImage.images.length}
                       </span>
                       
                       {/* Dots Indicator */}
@@ -1716,16 +1699,16 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
 
                 {/* Medication Info */}
                 <div className="text-center space-y-2">
-                  <h3 className="text-right text-xl font-semibold">{enlargedImage.name}</h3>
-                  <p className="text-right text-gray-600">{enlargedImage.ingredient}</p>
-                  <p className="text-right text-gray-500">
-                    {enlargedImage.form === 'تحميلة' 
+                  <h3 className="text-xl font-semibold">{enlargedImage.name}</h3>
+                  <p className="text-gray-600">{enlargedImage.ingredient}</p>
+                  <p className="text-gray-500">
+                    {enlargedImage.form === 'suppository' 
                       ? `${enlargedImage.concentration}mg`
                       : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
                     } {enlargedImage.form}
                   </p>
                   {enlargedImage.ageRestriction && (
-                    <p className="text-right text-blue-600 font-medium text-sm">
+                    <p className="text-blue-600 font-medium text-sm">
                       {enlargedImage.ageRestriction}
                     </p>
                   )}
@@ -1742,41 +1725,42 @@ function App({ onChangeLanguage, country = 'DEFAULT', language = 'ar' }) {
           {/* Copyright Notice */}
           <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
             <div className="space-y-2">
-              <p className="text-right text-base font-semibold text-gray-800 flex items-center justify-center gap-1">
-                <span>تم تطويره بواسطة</span>
-                {' '}
+              <p className="text-base font-semibold text-gray-800 flex items-center justify-center gap-1">
+                Developed by{' '}
                 <a 
                   href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800 hover:underline transition-colors"
                 >
-                  د.سعد بن فهد المديميغ
+                  Dr. Saad Fahad Almodameg
                 </a>
-                {' '}
                 <a 
                   href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1"
+                  className="inline-flex items-center"
                 >
                   <img src={linkedinLogo} alt="LinkedIn" className="h-4" />
                 </a>
               </p>
-              <p className="text-center font-semibold text-gray-700">موقع حرارة</p>
-              <div className="text-center text-lg font-bold text-gray-800">© جميع الحقوق محفوظة</div>
+              <p className="font-semibold text-gray-700">Fever Calc</p>
+              <div className="text-lg font-bold text-gray-800">© All Rights Reserved</div>
             </div>
           </div>
           
           {/* Contact Information */}
           <div className="border-t pt-4">
             <p className="mt-1 font-medium">
-              <span className="text-black">للتواصل: </span>
+              <span className="text-black">For advertising or inquiries: </span>
               <span className="text-blue-600">fever.calc@gmail.com</span>
             </p>
           </div>
         </div>
       </footer>
+      
+      {/* Share Modal */}
+      <ShareModalEnglish isOpen={isShareModalOpen} onClose={() => setIsShareModalOpen(false)} />
     </div>
   )
 }
@@ -1799,9 +1783,9 @@ const DosageTimelineVisualizer = ({
     return (
       <div className="text-center py-8">
         <Timer className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-        <p className="text-right text-gray-500 text-lg mb-2">لم يتم تسجيل أي جرعات بعد</p>
-        <p className="text-right text-gray-400 text-sm">
-          استخدم زر "سجل الجرعة الآن" بعد حساب الجرعة لبدء التتبع
+        <p className="text-gray-500 text-lg mb-2">لم يتم تسجيل أي doses بعد</p>
+        <p className="text-gray-400 text-sm">
+          استخدم زر "سجل الdose الآن" بعد حساب الdose لبدء التتبع
         </p>
       </div>
     )
@@ -1823,11 +1807,11 @@ const DosageTimelineVisualizer = ({
               <div className="flex items-center justify-between mb-4">
                 <div>
                   <h4 className="font-semibold text-gray-900">{medication.medicationName}</h4>
-                  <p className="text-right text-sm text-gray-600">{medication.ingredient}</p>
+                  <p className="text-sm text-gray-600">{medication.ingredient}</p>
                 </div>
                 <div className="text-right">
-                  <div className="text-right text-sm text-gray-500">آخر جرعة</div>
-                  <div className="text-right text-sm font-medium">
+                  <div className="text-sm text-gray-500">آخر dose</div>
+                  <div className="text-sm font-medium">
                     {new Date(lastDose.time).toLocaleTimeString('ar-SA', { 
                       hour: '2-digit', 
                       minute: '2-digit' 
@@ -1874,15 +1858,15 @@ const DosageTimelineVisualizer = ({
                     </span>
                   </div>
                   
-                  <div className="text-right text-sm text-gray-600">
-                    الجرعات اليوم: {dosesIn24h}
+                  <div className="text-sm text-gray-600">
+                    Today's Doses: {dosesIn24h}
                   </div>
                   
                   {canTakeNext && (
                     <div className="mt-2">
                       <Badge className="bg-green-100 text-green-800 border-green-300">
                         <Bell className="h-3 w-3 mr-1" />
-                        جاهز للجرعة التالية
+                        Ready for Next Dose
                       </Badge>
                     </div>
                   )}
@@ -1895,7 +1879,7 @@ const DosageTimelineVisualizer = ({
                   <div className="flex items-center gap-2 text-blue-800">
                     <Timer className="h-4 w-4" />
                     <span className="text-sm">
-                      الجرعة التالية في: {formatTimeRemaining(timeUntilNext)}
+                      Next Dose in: {formatTimeRemaining(timeUntilNext)}
                     </span>
                   </div>
                 </div>
@@ -1909,7 +1893,7 @@ const DosageTimelineVisualizer = ({
       <div className="bg-gray-50 p-4 rounded-lg">
         <h4 className="font-semibold text-gray-900 mb-3 flex items-center gap-2">
           <Clock className="h-4 w-4" />
-          سجل الجرعات الأخيرة
+          Recent Dose Log
         </h4>
         <div className="space-y-2 max-h-40 overflow-y-auto">
           {doseHistory
@@ -1919,13 +1903,13 @@ const DosageTimelineVisualizer = ({
               <div key={dose.id} className="flex items-center justify-between bg-white p-2 rounded border">
                 <div>
                   <div className="font-medium text-sm">{dose.medicationName}</div>
-                  <div className="text-right text-xs text-gray-600">{dose.amount}</div>
+                  <div className="text-xs text-gray-600">{dose.amount}</div>
                 </div>
                 <div className="text-right">
-                  <div className="text-right text-xs text-gray-500">
+                  <div className="text-xs text-gray-500">
                     {new Date(dose.time).toLocaleDateString('ar-SA')}
                   </div>
-                  <div className="text-right text-sm font-medium">
+                  <div className="text-sm font-medium">
                     {new Date(dose.time).toLocaleTimeString('ar-SA', { 
                       hour: '2-digit', 
                       minute: '2-digit' 
@@ -1939,8 +1923,8 @@ const DosageTimelineVisualizer = ({
 
       {/* Current Time Display */}
       <div className="text-center py-2 bg-blue-50 rounded-lg">
-        <div className="text-right text-sm text-blue-600">الوقت الحالي</div>
-        <div className="text-right text-lg font-semibold text-blue-800">
+        <div className="text-sm text-blue-600">الوقت الحالي</div>
+        <div className="text-lg font-semibold text-blue-800">
           {currentTime.toLocaleTimeString('ar-SA', { 
             hour: '2-digit', 
             minute: '2-digit',
@@ -1952,5 +1936,5 @@ const DosageTimelineVisualizer = ({
   )
 }
 
-export default App
+export default AppIndiaEnglish
 
