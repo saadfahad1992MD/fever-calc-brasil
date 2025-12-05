@@ -68,8 +68,30 @@ export async function detectUserCountry() {
 }
 
 /**
+ * Detects country from browser language as fallback
+ * Returns country code based on language
+ */
+export function detectCountryFromLanguage() {
+  const browserLang = navigator.language || navigator.userLanguage;
+  console.log('Browser language:', browserLang);
+  
+  // Map language codes to country codes
+  if (browserLang.startsWith('id')) return 'ID'; // Indonesian
+  if (browserLang.startsWith('hi')) return 'IN'; // Hindi
+  if (browserLang.startsWith('tl') || browserLang.startsWith('fil')) return 'PH'; // Tagalog/Filipino
+  if (browserLang.startsWith('ar')) {
+    // Arabic - need to distinguish between countries
+    // For now, default to Saudi Arabia for Arabic
+    return 'SA';
+  }
+  
+  return 'DEFAULT';
+}
+
+/**
  * Gets the country from localStorage or detects it
  * Respects manual country override for testing
+ * Uses both IP geolocation and browser language detection
  */
 export async function getUserCountry() {
   // Check if user manually selected a country (for testing)
@@ -88,8 +110,16 @@ export async function getUserCountry() {
     return cachedCountry;
   }
   
-  // Auto-detect country and cache it
-  const country = await detectUserCountry();
+  // Auto-detect country using IP geolocation
+  let country = await detectUserCountry();
+  
+  // If geolocation returns DEFAULT, try language detection as fallback
+  if (country === 'DEFAULT') {
+    console.log('Geolocation returned DEFAULT, trying language detection...');
+    country = detectCountryFromLanguage();
+    console.log('Language-based detection result:', country);
+  }
+  
   localStorage.setItem('userCountry', country);
   // Mark as auto-detected (not manual override)
   localStorage.removeItem('countryOverride');

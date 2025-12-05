@@ -24,6 +24,38 @@ export function AppWrapper() {
         setCountry(detectedCountry)
         console.log('User country detected:', detectedCountry)
         
+        // Redirect logic: Send users to their country-specific subdomain
+        // Only redirect if on main domain (fevercalc.com)
+        const isMainDomain = window.location.hostname === 'fevercalc.com' || window.location.hostname === 'www.fevercalc.com'
+        const hasBeenRedirected = sessionStorage.getItem('fevercalc_redirected')
+        
+        if (isMainDomain && !hasBeenRedirected) {
+          let redirectUrl = null
+          
+          // Country-specific redirects
+          if (detectedCountry === 'ID') {
+            // Indonesia
+            redirectUrl = 'https://fever-calc-indonesia.vercel.app'
+          } else if (detectedCountry === 'IN') {
+            // India
+            redirectUrl = 'https://fever-calculator-india.vercel.app'
+          } else if (detectedCountry === 'PH') {
+            // Philippines
+            redirectUrl = 'https://fever-calc-philippines.vercel.app'
+          } else if (detectedCountry === 'EG') {
+            // Egypt
+            redirectUrl = 'https://fever-calc-egypt.vercel.app'
+          }
+          
+          // Perform redirect if determined
+          if (redirectUrl) {
+            console.log('Redirecting to:', redirectUrl)
+            sessionStorage.setItem('fevercalc_redirected', 'true')
+            window.location.href = redirectUrl
+            return // Stop further execution
+          }
+        }
+        
         // Set default language based on country if not already set
         const savedLanguage = localStorage.getItem('selectedLanguage')
         if (!savedLanguage) {
