@@ -45,6 +45,9 @@ export function AppWrapper() {
           } else if (detectedCountry === 'EG') {
             // Egypt
             redirectUrl = 'https://fever-calc-egypt.vercel.app'
+          } else if (detectedCountry === 'NG') {
+            // Nigeria
+            redirectUrl = 'https://fever-calc-nigeria.vercel.app'
           }
           
           // Perform redirect if determined
