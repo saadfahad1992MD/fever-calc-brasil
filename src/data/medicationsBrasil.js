@@ -17,8 +17,8 @@ export const medicationsBrasil = {
       id: 'tylenol_crianca',
       name: 'Tylenol Criança',
       ingredient: 'Paracetamol',
-      concentration: 160, // mg per 5ml (32mg/ml)
-      volume: 5, // ml
+      concentration: 32, // mg per ml (32mg/ml as shown on package)
+      volume: 1, // ml
       form: 'syrup',
       image: '/medications/brasil/tylenol_crianca.jpg',
       ageRestriction: ''
@@ -27,7 +27,7 @@ export const medicationsBrasil = {
       id: 'paracetamol_ems',
       name: 'Paracetamol EMS',
       ingredient: 'Paracetamol',
-      concentration: 100, // mg per ml (pediatric version)
+      concentration: 200, // mg per ml (200mg/ml as shown on package)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_ems.jpg',
@@ -37,8 +37,8 @@ export const medicationsBrasil = {
       id: 'paracetamol_vitamedic',
       name: 'Paracetamol Vitamedic',
       ingredient: 'Paracetamol',
-      concentration: 100, // mg per ml (pediatric version)
-      volume: 1, // ml
+      concentration: 140, // mg per 5ml (140mg/5ml = 28mg/ml)
+      volume: 5, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_vitamedic.jpg',
       ageRestriction: ''
@@ -47,7 +47,7 @@ export const medicationsBrasil = {
       id: 'paracetamol_ache',
       name: 'Paracetamol Aché',
       ingredient: 'Paracetamol',
-      concentration: 100, // mg per ml (pediatric version)
+      concentration: 200, // mg per ml (200mg/ml as shown on package)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_ache.jpg',
