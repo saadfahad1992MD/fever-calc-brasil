@@ -147,7 +147,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       let volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
       
       // Round DOWN to nearest 0.1ml for gotas, 0.5ml for xaropes (safety first)
-      if (selectedMedication.form === 'Drops') {
+      if (selectedMedication.form === 'drops') {
         volumeNeeded = Math.floor(volumeNeeded * 10) / 10  // Round down to 0.1ml
       } else {
         volumeNeeded = Math.floor(volumeNeeded * 2) / 2    // Round down to 0.5ml
