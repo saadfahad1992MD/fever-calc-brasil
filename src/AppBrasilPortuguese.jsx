@@ -317,7 +317,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       }
       
       if (isIbuprofen && isUnder6Months) {
-        alert('⚠️ Warning: Ibuprofen medications are suitable for children 6 meses and older only')
+        alert('⚠️ Aviso: Medicamentos de ibuprofeno são adequados para crianças de 6 meses ou mais')
         return
       }
       
