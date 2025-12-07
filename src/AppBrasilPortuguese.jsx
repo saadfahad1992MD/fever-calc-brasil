@@ -32,7 +32,11 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
 
   // Select medications based on country
   const medicationsData = medicationsBrasil
-  const suppositoriesData = medicationsBrasil.suppositories
+  const suppositoriesData = {
+    paracetamol: medicationsBrasil.paracetamolSuppositories || [],
+    diclofenac: medicationsBrasil.diclofenacSuppositories || [],
+    dipirona: medicationsBrasil.dipironaSuppositories || []
+  }
 
   // Function to convert Arabic numerals to English numerals
   const convertArabicToEnglish = (str) => {
