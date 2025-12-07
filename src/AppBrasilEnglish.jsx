@@ -73,7 +73,7 @@ function AppBrasilEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
     let maxSingleDose // Maximum single dose in mg
 
     if (selectedMedication.ingredient === 'Paracetamol') {
-      dosagePerKg = 15 // 10-15mg/kg per dose
+      dosagePerKg = 15 // 15mg/kg per dose for all paracetamol medications
       frequency = 'Every 4-6 hours'
       maxDailyDoses = 5
       maxSingleDose = 500 // Maximum 500mg per dose
