@@ -459,7 +459,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       {/* Hide language toggle for Nigeria - English only */}
       {/* {country !== 'PH' && (
-        <LanguageToggle currentLanguage="en" targetLanguage="ar" onToggle={onChangeLanguage} />
+        <LanguageToggle currentLanguage="pt" targetLanguage="en" onToggle={onChangeLanguage} />
       )} */}
       {/* Top Brand Header */}
       <div className="sticky top-0 bg-white text-gray-800 py-6 shadow-lg border-b-2 border-gray-100 z-40">

@@ -17,6 +17,10 @@ export function LanguageToggle({ currentLanguage, onToggle, targetLanguage }) {
     // Currently Tagalog -> show English option
     flag = '🇬🇧';
     text = 'English';
+  } else if (currentLanguage === 'pt') {
+    // Currently Portuguese -> show English option
+    flag = '🇬🇧';
+    text = 'English';
   } else if (currentLanguage === 'en') {
     // Currently English -> show the local language option
     // Use targetLanguage if provided, otherwise default to Arabic
@@ -31,6 +35,9 @@ export function LanguageToggle({ currentLanguage, onToggle, targetLanguage }) {
     } else if (target === 'tl') {
       flag = '🇵🇭';
       text = 'Tagalog';
+    } else if (target === 'pt') {
+      flag = '🇧🇷';
+      text = 'Português';
     } else {
       // Fallback to Arabic if target is unknown
       flag = '🇸🇦';
