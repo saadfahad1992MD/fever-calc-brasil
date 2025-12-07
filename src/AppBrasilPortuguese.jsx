@@ -465,7 +465,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       
       {/* Share Button */}
       <button
-        onClick={() => setIsShareModalOpen(true)}
+        onClick={() => { console.log('Share button clicked'); alert('Opening share modal'); setIsShareModalOpen(true); }}
         className="fixed top-4 right-4 z-50 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200"
         title="Compartilhar o site"
       >
