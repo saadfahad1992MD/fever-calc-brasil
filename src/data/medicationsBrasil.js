@@ -37,8 +37,8 @@ export const medicationsBrasil = {
       id: 'paracetamol_vitamedic',
       name: 'Paracetamol Vitamedic',
       ingredient: 'Paracetamol',
-      concentration: 140, // mg per 5ml (140mg/5ml = 28mg/ml)
-      volume: 5, // ml
+      concentration: 140, // mg per ml (140mg/ml as shown on pharmacy website)
+      volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_vitamedic.jpg',
       ageRestriction: ''
