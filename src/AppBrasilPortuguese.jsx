@@ -98,7 +98,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       }
       
       // Weight-based dosing for diclofenac suppositories
-      if (selectedMedication.form === 'supositório') {
+      if (selectedMedication.form === 'suppository') {
         let appropriateDose = 0
         if (weightNum >= 8 && weightNum <= 16) {
           appropriateDose = 12.5
@@ -135,7 +135,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       totalDoseMg = maxSingleDose
     }
 
-    if (selectedMedication.form === 'supositório') {
+    if (selectedMedication.form === 'suppository') {
       // For suppositories, always show one supositório
       setResult({
         medication: selectedMedication,
@@ -245,7 +245,14 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
     let isSuppositoryUnsuitable = false
     let unsuitabilityReason = ''
     
-    if (medication.form === 'supositório' && age && ageUnit && weight) {
+    // Diclofenac requires age >= 1 year, grey out if no age or age < 1
+    const isDiclofenac = medication.ingredient === 'Diclofenac'
+    if (isDiclofenac && (!age || !ageUnit || ageInMonths < 12)) {
+      isSuppositoryUnsuitable = true
+      unsuitabilityReason = 'Adequado para crianças acima de 1 ano'
+    }
+    
+    if (medication.form === 'suppository' && age && ageUnit && weight) {
       const weightNum = parseFloat(weight)
       
       if (medication.ingredient === 'Paracetamol') {
@@ -257,7 +264,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
             const maxWeight = parseFloat(weightMatch[2])
             if (weightNum < minWeight || weightNum > maxWeight) {
               isSuppositoryUnsuitable = true
-              unsuitabilityReason = `Suitable for weight ${weightRange} kg`
+              unsuitabilityReason = `Adequado para peso ${weightRange} kg`
             }
           }
         }
@@ -266,29 +273,29 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       if (medication.ingredient === 'Diclofenac') {
         if (ageInMonths < 12) {
           isSuppositoryUnsuitable = true
-          unsuitabilityReason = 'Suitable for children over 1 year old'
+          unsuitabilityReason = 'Adequado para crianças acima de 1 ano'
         } else {
           if (weightNum >= 8 && weightNum <= 16) {
             if (medication.concentration !== 12.5) {
               isSuppositoryUnsuitable = true
               // Show the range for THIS medication (25mg), not the unsuitable one
-              unsuitabilityReason = 'Suitable for weight 17-25 kg'
+              unsuitabilityReason = 'Adequado para peso 17-25 kg'
             }
           } else if (weightNum >= 17 && weightNum <= 25) {
             if (medication.concentration !== 25) {
               isSuppositoryUnsuitable = true
               // Show the range for THIS medication (12.5mg), not the unsuitable one
-              unsuitabilityReason = 'Suitable for weight 8-16 kg'
+              unsuitabilityReason = 'Adequado para peso 8-16 kg'
             }
           } else {
             isSuppositoryUnsuitable = true
             // Show specific range based on concentration
             if (medication.concentration === 12.5) {
-              unsuitabilityReason = 'Suitable for weight 8-16 kg'
+              unsuitabilityReason = 'Adequado para peso 8-16 kg'
             } else if (medication.concentration === 25) {
-              unsuitabilityReason = 'Suitable for weight 17-25 kg'
+              unsuitabilityReason = 'Adequado para peso 17-25 kg'
             } else {
-              unsuitabilityReason = 'Suitable for weight 8-25 kg'
+              unsuitabilityReason = 'Adequado para peso 8-25 kg'
             }
           }
         }
@@ -300,12 +307,12 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
     const handleClick = () => {
       // Check if age and weight are entered
       if (!age || !ageUnit || !weight) {
-        alert('⚠️ Please enter age and weight first')
+        alert('⚠️ Por favor, insira a idade e o peso primeiro')
         return
       }
       
       if (isSuppositoryUnsuitable) {
-        alert(`⚠️ Warning: This supositório is not suitable for your child\n${unsuitabilityReason}`)
+        alert(`⚠️ Aviso: Este supositório não é adequado para seu filho\n${unsuitabilityReason}`)
         return
       }
       
@@ -371,7 +378,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
             <div className="text-sm text-gray-500">
               <span>Concentração: </span>
               <span className="font-bold text-blue-600" dir="ltr">
-                {medication.form === 'supositório' 
+                {medication.form === 'suppository' 
                   ? `${medication.concentration}mg`
                   : `${medication.concentration}mg/${medication.volume}ml`
                 }
@@ -772,10 +779,10 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                     {/* Additional Information */}
                     <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm text-green-800 leading-relaxed">
-                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
+                        Para febre ou dor que não responde ao paracetamol, seu médico pode recomendar um antitérmico ou analgésico mais forte como supositórios de diclofenaco
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
-                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen xarope. Do not take them at the same time and leave 8 hours between them
+                        <strong>Nota:</strong> Supositórios de diclofenaco não interagem com paracetamol, mas pertencem à mesma família que ibuprofeno xarope. Não tome ao mesmo tempo e deixe 8 horas entre eles
                       </p>
                     </div>
                     
@@ -1418,7 +1425,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   <h3 className="text-xl font-semibold">{enlargedImage.name}</h3>
                   <p className="text-gray-600">{enlargedImage.ingredient}</p>
                   <p className="text-gray-500">
-                    {enlargedImage.form === 'supositório' 
+                    {enlargedImage.form === 'suppository' 
                       ? `${enlargedImage.concentration}mg`
                       : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
                     } {enlargedImage.form}
