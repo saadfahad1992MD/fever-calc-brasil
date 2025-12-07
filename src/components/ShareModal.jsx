@@ -4,6 +4,7 @@ import { Button } from './ui/button.jsx'
 import { X } from 'lucide-react'
 
 export function ShareModal({ isOpen, onClose, language = 'pt' }) {
+  console.log('ShareModal rendered, isOpen:', isOpen);
   const websiteUrl = 'https://fever-calc-brasil.vercel.app'
   
   const translations = {
