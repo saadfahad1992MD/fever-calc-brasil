@@ -406,8 +406,8 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
               </p>
             )}
           </div>
-          <div className="flex flex-col items-center gap-2">
-            <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-gray-300">
+          <div className="flex flex-col items-center gap-2 ml-2">
+            <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-gray-300 flex-shrink-0">
               {selectedMedication?.id === medication.id && (
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
               )}
