@@ -245,9 +245,9 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
     let isSuppositoryUnsuitable = false
     let unsuitabilityReason = ''
     
-    // Diclofenac requires age >= 1 year, grey out if no age or age < 1
+    // Diclofenac requires age >= 1 year, grey out ONLY if age is selected AND age < 1
     const isDiclofenac = medication.ingredient === 'Diclofenac'
-    if (isDiclofenac && (!age || !ageUnit || ageInMonths < 12)) {
+    if (isDiclofenac && age && ageUnit && ageInMonths < 12) {
       isSuppositoryUnsuitable = true
       unsuitabilityReason = 'Adequado para crianças acima de 1 ano'
     }
@@ -339,7 +339,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       style={isDisabled ? { opacity: 0.5, cursor: 'not-allowed' } : {}}
     >
       <CardContent className="p-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-start gap-4">
           <div className="flex flex-col items-center gap-2">
             {medication.images ? (
               <div className="flex gap-1">
@@ -406,7 +406,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
               </p>
             )}
           </div>
-          <div className="flex flex-col items-center gap-2 ml-2">
+          <div className="flex items-center justify-center">
             <div className="flex items-center justify-center w-6 h-6 rounded-full border-2 border-gray-300 flex-shrink-0">
               {selectedMedication?.id === medication.id && (
                 <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
