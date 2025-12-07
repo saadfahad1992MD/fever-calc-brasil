@@ -8,8 +8,9 @@ import { Alert, AlertDescription } from '@/components/ui/alert.jsx'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs.jsx'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog.jsx'
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion.jsx'
-import { AlertTriangle, Calculator, Info, X, ZoomIn, Pill, Flame, Shield, Clock, Users, CheckCircle, Linkedin } from 'lucide-react'
+import { AlertTriangle, Calculator, Info, X, ZoomIn, Pill, Flame, Shield, Clock, Users, CheckCircle, Linkedin, Share2 } from 'lucide-react'
 import { LanguageToggle } from './components/LanguageToggle.jsx'
+import { ShareModal } from './components/ShareModal.jsx'
 import linkedinLogo from './assets/linkedin-logo.png'
 import './App.css'
 
@@ -27,6 +28,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
   const [enlargedImage, setEnlargedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [medicationType, setMedicationType] = useState('xarope') // 'xarope' or 'supositório'
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false)
 
   // Select medications based on country
   const medicationsData = medicationsBrasil
@@ -460,6 +462,16 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       
       
         <LanguageToggle currentLanguage="pt" targetLanguage="en" onToggle={onChangeLanguage} />
+      
+      {/* Share Button */}
+      <button
+        onClick={() => setIsShareModalOpen(true)}
+        className="fixed top-4 right-4 z-50 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200"
+        title="Compartilhar o site"
+      >
+        <Share2 className="w-5 h-5" />
+        Compartilhar
+      </button>
       
       {/* Top Brand Header */}
       <div className="sticky top-0 bg-white text-gray-800 py-6 shadow-lg border-b-2 border-gray-100 z-40">
@@ -1618,17 +1630,12 @@ const DosageTimelineVisualizer = ({
         </div>
       </div>
 
-      {/* Current Time Display */}
-      <div className="text-center py-2 bg-blue-50 rounded-lg">
-        <div className="text-sm text-blue-600">الوقت الحالي</div>
-        <div className="text-lg font-semibold text-blue-800">
-          {currentTime.toLocaleTimeString('ar-SA', { 
-            hour: '2-digit', 
-            minute: '2-digit',
-            second: '2-digit'
-          })}
-        </div>
-      </div>
+      {/* Share Modal */}
+      <ShareModal 
+        isOpen={isShareModalOpen} 
+        onClose={() => setIsShareModalOpen(false)}
+        language="pt"
+      />
     </div>
   )
 }
