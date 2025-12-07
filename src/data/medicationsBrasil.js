@@ -24,8 +24,18 @@ export const medicationsBrasil = {
       ageRestriction: ''
     },
     {
+      id: 'paracetamol_ems_bebe',
+      name: 'Paracetamol EMS Bebê',
+      ingredient: 'Paracetamol',
+      concentration: 100, // mg per ml (100mg/ml baby version)
+      volume: 1, // ml
+      form: 'drops',
+      image: '/medications/brasil/paracetamol_ems_bebe.jpg',
+      ageRestriction: 'Para bebês 0-2 anos'
+    },
+    {
       id: 'paracetamol_ems',
-      name: 'Paracetamol EMS',
+      name: 'Paracetamol EMS Gotas',
       ingredient: 'Paracetamol',
       concentration: 200, // mg per ml (200mg/ml as shown on package)
       volume: 1, // ml
@@ -34,8 +44,18 @@ export const medicationsBrasil = {
       ageRestriction: ''
     },
     {
+      id: 'paracetamol_vitamedic_bebe',
+      name: 'Paracetamol Vitamedic Bebê',
+      ingredient: 'Paracetamol',
+      concentration: 100, // mg per ml (100mg/ml baby version)
+      volume: 1, // ml
+      form: 'drops',
+      image: '/medications/brasil/paracetamol_vitamedic_bebe.webp',
+      ageRestriction: 'Para bebês 0-2 anos'
+    },
+    {
       id: 'paracetamol_vitamedic',
-      name: 'Paracetamol Vitamedic',
+      name: 'Paracetamol Vitamedic Gotas',
       ingredient: 'Paracetamol',
       concentration: 140, // mg per ml (140mg/ml as shown on pharmacy website)
       volume: 1, // ml
