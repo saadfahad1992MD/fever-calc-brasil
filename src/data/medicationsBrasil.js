@@ -7,7 +7,7 @@ export const medicationsBrasil = {
       id: 'tylenol_bebe_drops',
       name: 'Tylenol Bebê Gotas',
       ingredient: 'Paracetamol',
-      concentration: 200, // mg per ml (200mg/ml)
+      concentration: 100, // mg per ml (100mg/ml)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/tylenol_bebe.jpg',
@@ -27,7 +27,7 @@ export const medicationsBrasil = {
       id: 'paracetamol_ems',
       name: 'Paracetamol EMS',
       ingredient: 'Paracetamol',
-      concentration: 200, // mg per ml
+      concentration: 100, // mg per ml (pediatric version)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_ems.jpg',
@@ -37,7 +37,7 @@ export const medicationsBrasil = {
       id: 'paracetamol_vitamedic',
       name: 'Paracetamol Vitamedic',
       ingredient: 'Paracetamol',
-      concentration: 200, // mg per ml
+      concentration: 100, // mg per ml (pediatric version)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_vitamedic.jpg',
@@ -47,7 +47,7 @@ export const medicationsBrasil = {
       id: 'paracetamol_ache',
       name: 'Paracetamol Aché',
       ingredient: 'Paracetamol',
-      concentration: 200, // mg per ml
+      concentration: 100, // mg per ml (pediatric version)
       volume: 1, // ml
       form: 'drops',
       image: '/medications/brasil/paracetamol_ache.jpg',
