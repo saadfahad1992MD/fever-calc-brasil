@@ -26,7 +26,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
   const [activeTab, setActiveTab] = useState('calculator')
   const [enlargedImage, setEnlargedImage] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
-  const [medicationType, setMedicationType] = useState('syrup') // 'syrup' or 'suppository'
+  const [medicationType, setMedicationType] = useState('xarope') // 'xarope' or 'supositório'
 
   // Select medications based on country
   const medicationsData = medicationsBrasil
@@ -92,7 +92,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       }
       
       // Weight-based dosing for diclofenac suppositories
-      if (selectedMedication.form === 'suppository') {
+      if (selectedMedication.form === 'supositório') {
         let appropriateDose = 0
         if (weightNum >= 8 && weightNum <= 16) {
           appropriateDose = 12.5
@@ -105,7 +105,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
         
         // Check if selected medication matches the appropriate dose
         if (selectedMedication.concentration !== appropriateDose) {
-          setResult({ error: `Por favor, selecione Diclofenac suppository ${appropriateDose}mg apropriado para o peso do seu filho` })
+          setResult({ error: `Por favor, selecione Diclofenac supositório ${appropriateDose}mg apropriado para o peso do seu filho` })
           return
         }
         
@@ -129,8 +129,8 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       totalDoseMg = maxSingleDose
     }
 
-    if (selectedMedication.form === 'suppository') {
-      // For suppositories, always show one suppository
+    if (selectedMedication.form === 'supositório') {
+      // For suppositories, always show one supositório
       setResult({
         medication: selectedMedication,
         weight: weightNum,
@@ -141,10 +141,10 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
         isSuppository: true
       })
     } else {
-      // For syrups, calculate volume needed
+      // For xaropes, calculate volume needed
       let volumeNeeded = (totalDoseMg * selectedMedication.volume) / selectedMedication.concentration
       
-      // Round DOWN to nearest 0.1ml for drops, 0.5ml for syrups (safety first)
+      // Round DOWN to nearest 0.1ml for gotas, 0.5ml for xaropes (safety first)
       if (selectedMedication.form === 'Drops') {
         volumeNeeded = Math.floor(volumeNeeded * 10) / 10  // Round down to 0.1ml
       } else {
@@ -232,14 +232,14 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
     const isUnder6Months = age && ageUnit && ageInMonths < 6
     
     // Check if medication is Adol Drops and age is 2 anos or above
-    const isAdolDrops = medication.id === 'adol_drops'
+    const isAdolDrops = medication.id === 'adol_gotas'
     const is2YearsOrAbove = age && ageUnit === 'years' && parseFloat(age) >= 2
     
-    // Check if suppository is suitable for current age/weight
+    // Check if supositório is suitable for current age/weight
     let isSuppositoryUnsuitable = false
     let unsuitabilityReason = ''
     
-    if (medication.form === 'suppository' && age && ageUnit && weight) {
+    if (medication.form === 'supositório' && age && ageUnit && weight) {
       const weightNum = parseFloat(weight)
       
       if (medication.ingredient === 'Paracetamol') {
@@ -299,7 +299,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
       }
       
       if (isSuppositoryUnsuitable) {
-        alert(`⚠️ Warning: This suppository is not suitable for your child\n${unsuitabilityReason}`)
+        alert(`⚠️ Warning: This supositório is not suitable for your child\n${unsuitabilityReason}`)
         return
       }
       
@@ -365,7 +365,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
             <div className="text-sm text-gray-500">
               <span>Concentração: </span>
               <span className="font-bold text-blue-600" dir="ltr">
-                {medication.form === 'suppository' 
+                {medication.form === 'supositório' 
                   ? `${medication.concentration}mg`
                   : `${medication.concentration}mg/${medication.volume}ml`
                 }
@@ -379,7 +379,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
             )}
             {(isIbuprofen && isUnder6Months) && (
               <p className="text-xs text-red-600 font-bold mt-1 bg-red-50 px-2 py-1 rounded">
-                ⚠️ For 6 meses and older
+                ⚠️ Para 6 meses ou mais
               </p>
             )}
             {(isAdolDrops && is2YearsOrAbove) && (
@@ -486,11 +486,11 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
           <div className="text-center">
             <div className="flex items-center justify-center gap-2 mb-2">
               <h1 className="text-2xl font-bold text-gray-900">
-                Fever Reducer & Pain Reliever Dosage Calculator for Children
+                Calculadora de Dose de Antitérmico e Analgésico para Crianças
               </h1>
             </div>
             <p className="text-gray-600 mb-3">
-              Calculate the correct dose for your child based on weight and medication type
+              Calcule a dose correta para seu filho baseado no peso e tipo de medicamento
             </p>
           </div>
         </div>
@@ -572,7 +572,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   {ageCategory && (
                     <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
                       <label className="text-sm font-medium">
-                        {ageCategory === 'infant' ? 'Select age in meses' : 'Select age in anos'}
+                        {ageCategory === 'infant' ? 'Selecione a idade em meses' : 'Selecione a idade em anos'}
                       </label>
                       <Select value={age} onValueChange={setAge}>
                         <SelectTrigger className="text-lg">
@@ -602,7 +602,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   {/* Step 3: Weight Selection */}
                   {age && (
                     <div className="space-y-2 animate-in slide-in-from-top-2 duration-300">
-                      <label className="text-sm font-medium">Child's Weight (kg)</label>
+                      <label className="text-sm font-medium">Peso da Criança (kg)</label>
                       <Select value={weight} onValueChange={setWeight}>
                         <SelectTrigger className="text-lg">
                           <SelectValue placeholder="Select weight" />
@@ -654,8 +654,8 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                 {/* Medication Type Selection */}
                 <div className="flex gap-4 justify-center">
                   <Button
-                    variant={medicationType === 'syrup' ? 'default' : 'outline'}
-                    onClick={() => changeMedicationType('syrup')}
+                    variant={medicationType === 'xarope' ? 'default' : 'outline'}
+                    onClick={() => changeMedicationType('xarope')}
                     className="flex items-center gap-2 px-6 py-3"
                   >
                     <span>💧</span>
@@ -664,8 +664,8 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   {/* Hide suppositories for Philippines - not available there */}
                   {country !== 'PH' && (
                     <Button
-                      variant={medicationType === 'suppository' ? 'default' : 'outline'}
-                      onClick={() => changeMedicationType('suppository')}
+                      variant={medicationType === 'supositório' ? 'default' : 'outline'}
+                      onClick={() => changeMedicationType('supositório')}
                       className="flex items-center gap-2 px-6 py-3"
                     >
                       <span>💊</span>
@@ -675,7 +675,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                 </div>
               </div>
 
-              {medicationType === 'syrup' && (
+              {medicationType === 'xarope' && (
                 <>
                   {/* Paracetamol Section */}
                   <div>
@@ -692,7 +692,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                     {/* Note about same concentration */}
                     <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                       <p className="text-sm text-blue-800 leading-relaxed">
-                        If you have a Paracetamol medication and didn't find it in the images above, you can select the medication with the same concentration and you will get the same required dose. For example, concentration 
+                        Se você tem um medicamento de Paracetamol e não o encontrou nas imagens acima, pode selecionar o medicamento com a mesma concentração e obterá a mesma dose necessária. Por exemplo, concentração 
                         {' '}
                         <span className="font-bold text-blue-600" dir="ltr">120mg/5ml</span>
                       </p>
@@ -712,7 +712,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                     {/* Additional Information */}
                     <div className="mb-4 p-3 bg-green-50 border border-green-200 rounded-lg">
                       <p className="text-sm text-green-800 leading-relaxed">
-                        For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as ibuprofen, alternating with paracetamol every 4 hours if necessary
+                        Para febre ou dor que não responde ao paracetamol, seu médico pode recomendar um antitérmico ou analgésico mais forte como ibuprofeno, alternando com paracetamol a cada 4 horas se necessário
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
                         <strong>Note:</strong> Ibuprofen does not interact with paracetamol and can be taken at the same time
@@ -728,7 +728,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   )}
                 </>
               )}
-              {medicationType === 'suppository' && (
+              {medicationType === 'supositório' && (
                 <>
                   {/* Supositórios de Paracetamol Section - Show ALL */}
                   <div>
@@ -759,7 +759,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                         For fever or pain that doesn't respond to paracetamol, your doctor may recommend a stronger fever reducer or pain reliever such as diclofenac suppositories
                       </p>
                       <p className="text-sm text-green-700 font-medium mt-2">
-                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen syrup. Do not take them at the same time and leave 8 hours between them
+                        <strong>Note:</strong> Diclofenac suppositories do not interact with paracetamol, but they belong to the same family as ibuprofen xarope. Do not take them at the same time and leave 8 hours between them
                       </p>
                     </div>
                     
@@ -821,33 +821,33 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   ) : (
                     <div className="space-y-4">
                       <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                        <h3 className="font-semibold text-green-800 mb-2">Calculated Dose:</h3>
+                        <h3 className="font-semibold text-green-800 mb-2">Dose Calculada:</h3>
                         <div className="grid gap-2 text-sm">
                           {result.isSuppository ? (
                             <p className="text-lg font-bold text-green-700">
-                              <strong>Number of Suppositories:</strong> {result.suppositories} suppository
+                              <strong>Number of Suppositories:</strong> {result.suppositories} supositório
                             </p>
                           ) : (
                             <p className="text-lg font-bold text-green-700">
-                              <strong>Required Amount:</strong> {result.volume} ml
+                              <strong>Quantidade Necessária:</strong> {result.volume} ml
                             </p>
                           )}
-                          <p><strong>Medication:</strong> {result.medication.name}</p>
-                          <p><strong>Child's Peso:</strong> {result.weight} kg</p>
-                          <p><strong>Frequency:</strong> {result.frequency}</p>
-                          <p><strong>Maximum Daily:</strong> {result.maxDailyDoses} doses</p>
+                          <p><strong>Medicamento:</strong> {result.medication.name}</p>
+                          <p><strong>Peso da Criança:</strong> {result.weight} kg</p>
+                          <p><strong>Frequência:</strong> {result.frequency}</p>
+                          <p><strong>Máximo Diário:</strong> {result.maxDailyDoses} doses</p>
                           {/* NSAIDs Warning for Ibuprofen and Diclofenac */}
                           {(result.medication.ingredient === 'Ibuprofen' || result.medication.ingredient === 'Diclofenac') && (
                             <div className="mt-2 p-2 bg-orange-50 border border-orange-200 rounded-lg">
                               <p className="text-orange-800 text-sm font-medium">
-                                Do not combine ibuprofen syrup and diclofenac suppositories at the same time; leave 8 hours between them
+                                Do not combine ibuprofen xarope and diclofenac suppositories at the same time; leave 8 hours between them
                               </p>
                             </div>
                           )}
                           {/* Developer Credit */}
                           <div className="mt-3 pt-3 border-t border-green-300">
                             <p className="text-xs text-gray-600 flex items-center justify-center gap-1">
-                              Developed by{' '}
+                              Desenvolvido por{' '}
                               <a 
                                 href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                                 target="_blank" 
@@ -881,7 +881,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                           }}
                           className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-6 py-2 rounded-lg shadow-md transition-colors duration-200">
                           <Info className="h-4 w-4 ml-2" />
-                          For FAQs and additional explanation, click here
+                          Para perguntas frequentes e explicações adicionais, clique aqui
                         </Button>
                       </div>
                       
@@ -890,9 +890,9 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                         <Alert className="bg-orange-50 border-orange-200">
                           <AlertTriangle className="h-4 w-4 text-orange-600" />
                           <AlertDescription className="text-orange-800">
-                            <strong>Important Warning:</strong>
+                            <strong>Aviso Importante:</strong>
                             <ul className="list-disc mt-2 space-y-1" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
-                              <li>This calculator is for guidance only. Always consult a doctor before giving any medication to your child. Do not exceed the recommended dose and do not give medication for more than 3-5 days without medical consultation.</li>
+                              <li>Esta calculadora é apenas para orientação. Sempre consulte um médico antes de dar qualquer medicamento ao seu filho. Não exceda a dose recomendada e não dê medicamento por mais de 3-5 dias sem consulta médica.</li>
                               {(() => {
                                 const ageValue = convertArabicToEnglish(age)
                                 const ageNum = parseFloat(ageValue)
@@ -909,7 +909,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   )
                 ) : (
                   <p className="text-gray-500 text-center py-8">
-                    Insira a idade e peso da criança and select medication to calculate dose
+                    Insira a idade e peso da criança e selecione o medicamento para calcular a dose
                   </p>
                 )}
               </CardContent>
@@ -923,10 +923,10 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                 <CardHeader>
                   <CardTitle className="flex items-center gap-2">
                     <Info className="h-5 w-5 text-blue-600" />
-                    Comprehensive Drug Families Guide
+                    Guia Completo de Famílias de Medicamentos
                   </CardTitle>
                   <CardDescription>
-                    Learn about different types of medications, how they work, and available brand names
+                    Aprenda sobre diferentes tipos de medicamentos, como funcionam e marcas disponíveis
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -936,17 +936,17 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                       <AccordionTrigger className="text-right">
                         <div className="flex items-center gap-2 md:gap-3">
                           <Pill className="h-5 w-5 text-blue-600" />
-                          <span className="text-lg font-semibold">Paracetamol Family (Acetaminophen)</span>
+                          <span className="text-lg font-semibold">Família do Paracetamol (Acetaminofeno)</span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent className="space-y-6 pt-4">
                         <div className="bg-purple-50 p-4 rounded-lg">
                           <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                             <Users className="h-4 w-4" />
-                            Popular Brand Names
+                            Marcas Populares
                           </h4>
                           <div className="text-purple-800 text-sm mb-3">
-                            Available forms: <strong>suppositories, syrup, drops</strong>
+                            Available forms: <strong>suppositories, xarope, gotas</strong>
                           </div>
                           
                           {/* Note about same concentration */}
@@ -995,7 +995,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <div className="bg-purple-50 p-4 rounded-lg">
                               <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                Popular Brand Names
+                                Marcas Populares
                               </h4>
                               <div className="text-purple-800 text-sm mb-3">
                                 Available forms: <strong>Xarope</strong>
@@ -1013,7 +1013,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <div className="bg-purple-50 p-4 rounded-lg">
                               <h4 className="font-semibold text-purple-900 mb-3 flex items-center gap-2">
                                 <Users className="h-4 w-4" />
-                                Popular Brand Names
+                                Marcas Populares
                               </h4>
                               <div className="text-purple-800 text-sm mb-3">
                                 Available forms: <strong>suppositories</strong>
@@ -1058,7 +1058,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-blue-700">4-6 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diário:</span>
                                   <span className="text-blue-700">5 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1066,7 +1066,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-blue-700">Drops, Syrup, suppositories</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Aviso Importante:</span>
                                   <span className="text-blue-700">-</span>
                                 </div>
                               </div>
@@ -1086,7 +1086,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-red-700">6-8 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diário:</span>
                                   <span className="text-red-700">3 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1094,7 +1094,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-red-700">Mainly Syrup</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Aviso Importante:</span>
                                   <span className="text-red-700">Do not combine with Diclofenac</span>
                                 </div>
                               </div>
@@ -1114,7 +1114,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-red-700">8-12 hours</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
-                                  <span className="font-medium text-gray-700">Maximum Daily:</span>
+                                  <span className="font-medium text-gray-700">Máximo Diário:</span>
                                   <span className="text-red-700">2 doses</span>
                                 </div>
                                 <div className="flex justify-between border-b border-gray-200 pb-1">
@@ -1122,7 +1122,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <span className="text-red-700">Suppositories only</span>
                                 </div>
                                 <div className="flex justify-between">
-                                  <span className="font-medium text-gray-700">Important Warning:</span>
+                                  <span className="font-medium text-gray-700">Aviso Importante:</span>
                                   <span className="text-red-700">Do not combine with Ibuprofen</span>
                                 </div>
                               </div>
@@ -1172,7 +1172,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                                   <td className="p-3 text-center text-red-700 whitespace-nowrap">Suppositories only</td>
                                 </tr>
                                 <tr>
-                                  <td className="p-3 font-medium whitespace-nowrap">Important Warning</td>
+                                  <td className="p-3 font-medium whitespace-nowrap">Aviso Importante</td>
                                   <td className="p-3 text-center text-blue-700">-</td>
                                   <td className="p-3 text-center text-red-700 text-xs">Do not combine with Diclofenac</td>
                                   <td className="p-3 text-center text-red-700 text-xs">Do not combine with Ibuprofen</td>
@@ -1210,14 +1210,14 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <span className="text-blue-600 font-bold text-xs md:text-sm">1</span>
                           </div>
                           <span className="text-blue-800 font-semibold text-sm md:text-lg">
-                            What is the difference between paracetamol medications and (ibuprofen and diclofenac) medications?
+                            Qual é a diferença entre medicamentos de paracetamol e medicamentos de (ibuprofeno e diclofenaco)?
                           </span>
                         </div>
                       </AccordionTrigger>
                       <AccordionContent>
                         <div className="bg-blue-50 p-3 md:p-4 rounded-lg mr-0 md:mr-11">
                           <p className="text-blue-800 text-sm md:text-base">
-                            Both are fever reducers and pain relievers. However, (ibuprofen and diclofenac) are considered stronger in reducing fever and pain than the paracetamol family.
+                            Ambos são antitérmicos e analgésicos. No entanto, (ibuprofeno e diclofenaco) são considerados mais fortes na redução de febre e dor do que a família do paracetamol.
                           </p>
                         </div>
                       </AccordionContent>
@@ -1231,7 +1231,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <span className="text-green-600 font-bold text-sm">2</span>
                           </div>
                           <span className="text-green-800 font-semibold text-sm md:text-lg">
-                            Is there an interaction between paracetamol and (ibuprofen and diclofenac) medications?
+                            Existe interação entre medicamentos de paracetamol e (ibuprofeno e diclofenaco)?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1252,7 +1252,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <span className="text-orange-600 font-bold text-sm">3</span>
                           </div>
                           <span className="text-orange-800 font-semibold text-sm md:text-lg">
-                            Which medications should not be combined at the same time?
+                            Quais medicamentos não devem ser combinados ao mesmo tempo?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1278,7 +1278,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                             <span className="text-teal-600 font-bold text-sm">4</span>
                           </div>
                           <span className="text-teal-800 font-semibold text-sm md:text-lg">
-                            Should medications be taken after eating or on an empty stomach?
+                            Os medicamentos devem ser tomados após comer ou com o estômago vazio?
                           </span>
                         </div>
                       </AccordionTrigger>
@@ -1305,13 +1305,13 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
               <Alert className="bg-red-50 border-red-200">
                 <AlertTriangle className="h-4 w-4 text-red-600" />
                 <AlertDescription className="text-red-800">
-                  <strong className="block mb-2">Important Safety Warnings:</strong>
+                  <strong className="block mb-2">Avisos Importantes de Segurança:</strong>
                   <ul className="list-disc space-y-1 text-sm" style={{listStylePosition: 'inside', direction: 'ltr', paddingLeft: '1.5rem'}}>
-                    <li>Never exceed the recommended dose or allowed frequency</li>
-                    <li>Do not give more than one type of medication containing the same active ingredient</li>
-                    <li>Do not use medication for more than 3-5 days without medical consultation</li>
-                    <li>Ensure there is no allergy to the medication before use</li>
-                    <li>Keep all medications out of reach of children</li>
+                    <li>Nunca exceda a dose recomendada ou frequência permitida</li>
+                    <li>Não dê mais de um tipo de medicamento contendo o mesmo princípio ativo</li>
+                    <li>Não use medicamento por mais de 3-5 dias sem consulta médica</li>
+                    <li>Certifique-se de que não há alergia ao medicamento antes de usar</li>
+                    <li>Mantenha todos os medicamentos fora do alcance das crianças</li>
                   </ul>
                 </AlertDescription>
               </Alert>
@@ -1402,7 +1402,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
                   <h3 className="text-xl font-semibold">{enlargedImage.name}</h3>
                   <p className="text-gray-600">{enlargedImage.ingredient}</p>
                   <p className="text-gray-500">
-                    {enlargedImage.form === 'suppository' 
+                    {enlargedImage.form === 'supositório' 
                       ? `${enlargedImage.concentration}mg`
                       : `${enlargedImage.concentration}mg/${enlargedImage.volume}ml`
                     } {enlargedImage.form}
@@ -1426,7 +1426,7 @@ function AppBrasilPortuguese({ onChangeLanguage, country = 'DEFAULT' }) {
           <div className="mb-4 p-4 bg-gray-50 rounded-lg border">
             <div className="space-y-2">
               <p className="text-base font-semibold text-gray-800 flex items-center justify-center gap-1">
-                Developed by{' '}
+                Desenvolvido por{' '}
                 <a 
                   href="https://www.linkedin.com/in/saad-almodameg-%D8%B3%D8%B9%D8%AF-%D8%A7%D9%84%D9%85%D8%AF%D9%8A%D9%85%D9%8A%D8%BA-5a0a43308" 
                   target="_blank" 
