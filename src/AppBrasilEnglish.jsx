@@ -468,11 +468,11 @@ function AppBrasilEnglish({ onChangeLanguage, country = 'DEFAULT' }) {
       {/* Share Button */}
       <button
         onClick={() => setIsShareModalOpen(true)}
-        className="fixed top-4 right-4 z-50 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-lg shadow-lg flex items-center gap-2 transition-all duration-200"
+        className="fixed top-4 right-4 z-50 bg-pink-600 hover:bg-pink-700 text-white px-4 py-2 rounded-full shadow-lg flex items-center gap-2 transition-all duration-200"
         title="Share the website"
       >
         <Share2 className="w-5 h-5" />
-        Share
+        <span className="hidden sm:inline">Share</span>
       </button>
       
       {/* Top Brand Header */}
